@@ -41,7 +41,7 @@
         self.barTintColor = nil;
 		self.showMHShareViewInsteadOfActivityViewController = NO;
         self.useCustomBackButtonImageOnImageViewer = YES;
-        self.showOverView = YES;
+        self.showOverView = NO;
         self.hideShare = NO;
         self.backButtonState = MHBackButtonStateWithBackArrow;
         self.videoProgressTintColor = UIColor.blackColor;
