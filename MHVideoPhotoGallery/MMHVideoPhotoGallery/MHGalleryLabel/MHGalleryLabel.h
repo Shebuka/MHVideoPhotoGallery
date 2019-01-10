@@ -6,7 +6,12 @@
 //  Copyright © 2015 Mario Hahn. All rights reserved.
 //
 
+#ifdef COCOAPODS
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
+#else
+#import "TTTAttributedLabel.h"
+#endif
+
 #import "MHCustomization.h"
 
 @class MHGalleryLabel;
