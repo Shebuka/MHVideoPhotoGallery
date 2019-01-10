@@ -16,14 +16,15 @@
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @end
 
-@interface MHOverviewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UINavigationControllerDelegate,UIGestureRecognizerDelegate>
+@interface MHOverviewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) UICollectionView      *collectionView;
-@property (strong,nonatomic ) MHMediaPreviewCollectionViewCell *clickedCell;
-@property (nonatomic)         NSInteger             currentPage;
+@property (strong, nonatomic) MHMediaPreviewCollectionViewCell *clickedCell;
+@property (nonatomic)         NSInteger currentPage;
 @property (nonatomic, strong) NSArray               *galleryItems;
 
--(UICollectionViewFlowLayout*)layoutForOrientation:(UIInterfaceOrientation)orientation;
--(MHGalleryItem*)itemForIndex:(NSInteger)index;
--(void)pushToImageViewerForIndexPath:(NSIndexPath*)indexPath;
+- (UICollectionViewFlowLayout*)layoutForOrientation:(UIInterfaceOrientation)orientation;
+- (MHGalleryItem*)itemForIndex:(NSInteger)index;
+- (void)pushToImageViewerForIndexPath:(NSIndexPath*)indexPath;
 @end
+

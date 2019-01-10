@@ -1,4 +1,3 @@
-
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
@@ -29,12 +28,12 @@
 #endif
 
 #define MHISIPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-#define kMHGalleryBundleName @"MHGallery"
-#define kMHGalleryBundleExtension @"bundle"
+#define kMHGalleryBundleName @ "MHGallery"
+#define kMHGalleryBundleExtension @ "bundle"
 #define MHGalleryOSVersion [UIDevice.currentDevice.systemVersion floatValue]
 
-extern void MHGalleryCustomLocalizationBlock(NSString *(^customLocalizationBlock)(NSString *stringToLocalize));
-extern void MHGalleryCustomImageBlock(UIImage *(^customImageBlock)(NSString *imageToChangeName));
+extern void MHGalleryCustomLocalizationBlock(NSString * (^ customLocalizationBlock)(NSString * stringToLocalize));
+extern void MHGalleryCustomImageBlock(UIImage * (^ customImageBlock)(NSString * imageToChangeName));
 
 extern NSNumberFormatter *MHNumberFormatterVideo(void);
 

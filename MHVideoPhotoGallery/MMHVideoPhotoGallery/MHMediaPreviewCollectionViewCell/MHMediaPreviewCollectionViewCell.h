@@ -23,3 +23,4 @@
 
 @property (nonatomic, copy) void (^saveImage)(BOOL shouldSave);
 @end
+

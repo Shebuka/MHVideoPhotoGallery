@@ -17,11 +17,11 @@
 @class MHImageViewController;
 
 @interface MHPinchGestureRecognizer : UIPinchGestureRecognizer
-@property (nonatomic)NSInteger tag;
+@property (nonatomic) NSInteger tag;
 @end
 
 
-@interface MHGalleryImageViewerViewController : UIViewController<UIPageViewControllerDelegate,UIPageViewControllerDataSource,UINavigationControllerDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate,UINavigationBarDelegate, UITextViewDelegate>
+@interface MHGalleryImageViewerViewController : UIViewController<UIPageViewControllerDelegate, UIPageViewControllerDataSource, UINavigationControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UINavigationBarDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong)          NSArray *galleryItems;
 @property (nonatomic, strong)          UIToolbar *toolbar;
@@ -33,45 +33,46 @@
 @property (nonatomic, strong)          UIImageView *dismissFromImageView;
 @property (nonatomic, strong)          MHTransitionPresentMHGallery *interactivePresentationTranstion;
 @property (nonatomic, strong)          MHTransitionCustomization *transitionCustomization;
-@property (nonatomic,strong)           MHUICustomization *UICustomization;
+@property (nonatomic, strong)           MHUICustomization *UICustomization;
 
-@property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
-@property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
+@property (nonatomic, getter = isUserScrolling)                   BOOL userScrolls;
+@property (nonatomic, getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
 
--(MHGalleryController*)galleryViewController;
--(void)updateToolBarForItem:(MHGalleryItem*)item;
--(void)playStopButtonPressed;
--(void)changeToPauseButton;
--(void)changeToPlayButton;
--(void)reloadData;
+- (MHGalleryController*)galleryViewController;
+- (void)updateToolBarForItem:(MHGalleryItem*)item;
+- (void)playStopButtonPressed;
+- (void)changeToPauseButton;
+- (void)changeToPlayButton;
+- (void)reloadData;
 @end
 
-@interface MHImageViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface MHImageViewController : UIViewController<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic,strong)        MHTransitionDismissMHGallery *interactiveTransition;
-@property (nonatomic,strong)        MHTransitionShowOverView *interactiveOverView;
-@property (nonatomic,strong)        MHGalleryImageViewerViewController *viewController;
-@property (nonatomic,strong)        MHGalleryItem *item;
-@property (nonatomic,strong)        UIScrollView *scrollView;
-@property (nonatomic,strong)        UIButton *playButton;
-@property (nonatomic,strong)        UIActivityIndicatorView *act;
-@property (nonatomic,strong)        UIImageView *imageView;
-@property (nonatomic,strong)        MPMoviePlayerController *moviePlayer;
+@property (nonatomic, strong)        MHTransitionDismissMHGallery *interactiveTransition;
+@property (nonatomic, strong)        MHTransitionShowOverView *interactiveOverView;
+@property (nonatomic, strong)        MHGalleryImageViewerViewController *viewController;
+@property (nonatomic, strong)        MHGalleryItem *item;
+@property (nonatomic, strong)        UIScrollView *scrollView;
+@property (nonatomic, strong)        UIButton *playButton;
+@property (nonatomic, strong)        UIActivityIndicatorView *act;
+@property (nonatomic, strong)        UIImageView *imageView;
+@property (nonatomic, strong)        MPMoviePlayerController *moviePlayer;
 
 @property (nonatomic)               NSInteger pageIndex;
 @property (nonatomic)               NSInteger currentTimeMovie;
 
-@property (nonatomic,getter = isPlayingVideo)        BOOL playingVideo;
-@property (nonatomic,getter = isPausingVideo)        BOOL pausingVideo;
+@property (nonatomic, getter = isPlayingVideo)        BOOL playingVideo;
+@property (nonatomic, getter = isPausingVideo)        BOOL pausingVideo;
 @property (nonatomic)                                BOOL videoWasPlayable;
 @property (nonatomic)                                BOOL videoDownloaded;
 
 
--(void)stopMovie;
--(void)removeAllMoviePlayerViewsAndNotifications;
--(void)playButtonPressed;
--(void)centerImageView;
+- (void)stopMovie;
+- (void)removeAllMoviePlayerViewsAndNotifications;
+- (void)playButtonPressed;
+- (void)centerImageView;
 
-+(MHImageViewController *)imageViewControllerForMHMediaItem:(MHGalleryItem*)item
-                                           viewController:(MHGalleryImageViewerViewController*)viewController;
++ (MHImageViewController *)imageViewControllerForMHMediaItem:(MHGalleryItem*)item
+    viewController:(MHGalleryImageViewerViewController*)viewController;
 @end
+

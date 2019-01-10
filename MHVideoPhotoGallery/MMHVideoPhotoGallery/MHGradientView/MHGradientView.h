@@ -10,16 +10,17 @@
 
 @class MHUICustomization;
 
-typedef NS_ENUM(NSUInteger, MHGradientDirection) {
+typedef NS_ENUM (NSUInteger, MHGradientDirection) {
     MHGradientDirectionTopToBottom,
     MHGradientDirectionBottomToTop
 };
 
 @interface MHGradientView : UIView
 
--(instancetype)initWithDirection:(MHGradientDirection)direction
-                andCustomization:(MHUICustomization*)customization;
+- (instancetype)initWithDirection:(MHGradientDirection)direction
+    andCustomization:(MHUICustomization*)customization;
 
 @property (nonatomic) MHGradientDirection direction;
-@property (nonatomic,strong) MHUICustomization *customization;
+@property (nonatomic, strong) MHUICustomization *customization;
 @end
+

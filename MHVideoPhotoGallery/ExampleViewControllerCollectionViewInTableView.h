@@ -21,8 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @end
 
-@interface ExampleViewControllerCollectionViewInTableView : UIViewController<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIViewControllerTransitioningDelegate,MHGalleryDataSource,MHGalleryDelegate>
-@property (strong,nonatomic) IBOutlet UITableView *tableView;
+@interface ExampleViewControllerCollectionViewInTableView : UIViewController<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIViewControllerTransitioningDelegate, MHGalleryDataSource, MHGalleryDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @end
-
 

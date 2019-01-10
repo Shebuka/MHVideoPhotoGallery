@@ -13,8 +13,9 @@
 #import "MHMediaPreviewCollectionViewCell.h"
 
 @interface MHTransitionShowShareView : UIPercentDrivenInteractiveTransition<UIViewControllerAnimatedTransitioning>
-@property (nonatomic,assign) BOOL interactionInProgress;
-@property (nonatomic,assign) BOOL present;
+@property (nonatomic, assign) BOOL interactionInProgress;
+@property (nonatomic, assign) BOOL present;
 
-@property (nonatomic,assign) id <UIViewControllerContextTransitioning> context;
+@property (nonatomic, assign) id <UIViewControllerContextTransitioning> context;
 @end
+

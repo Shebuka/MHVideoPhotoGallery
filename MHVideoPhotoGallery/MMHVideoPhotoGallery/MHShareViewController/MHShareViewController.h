@@ -13,44 +13,44 @@
 @import AssetsLibrary;
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
-Stuff; \
-_Pragma("clang diagnostic pop") \
-} while (0)
+    do { \
+        _Pragma("clang diagnostic push") \
+        _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+        Stuff; \
+        _Pragma("clang diagnostic pop") \
+    } while (0)
 
 
 
 @interface MHImageURL : NSObject
-@property (nonatomic,strong) NSString *URL;
-@property (nonatomic,strong) UIImage *image;
+@property (nonatomic, strong) NSString *URL;
+@property (nonatomic, strong) UIImage *image;
 @end
 
 @interface MHDownloadView : UIView
-@property (nonatomic,strong) UIToolbar *blurBackgroundToolbar;
-@property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
-@property (nonatomic,strong) UILabel *downloadDataLabel;
-@property (nonatomic,strong) UIButton *cancelDownloadButton;
+@property (nonatomic, strong) UIToolbar *blurBackgroundToolbar;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, strong) UILabel *downloadDataLabel;
+@property (nonatomic, strong) UIButton *cancelDownloadButton;
 
--(void)attributedStringForDownloadLabelWithDownloadedDataNumber:(NSNumber*)downloaded maxNumber:(NSNumber*)maxNumber;
+- (void)attributedStringForDownloadLabelWithDownloadedDataNumber:(NSNumber*)downloaded maxNumber:(NSNumber*)maxNumber;
 
 @property (nonatomic, copy) void (^cancelCallbackDownloadData)(BOOL cancel);
 
 @end
 
 @interface MHShareItem : NSObject
-@property (nonatomic,strong) NSString *imageName;
-@property (nonatomic,strong) NSString *title;
+@property (nonatomic, strong) NSString *imageName;
+@property (nonatomic, strong) NSString *title;
 @property (nonatomic)        NSInteger maxNumberOfItems;
-@property (nonatomic,strong) NSString *selectorName;
+@property (nonatomic, strong) NSString *selectorName;
 @property (nonatomic)        id onViewController;
 
 - (id)initWithImageName:(NSString*)imageName
-                  title:(NSString*)title
-   withMaxNumberOfItems:(NSInteger)maxNumberOfItems
-           withSelector:(NSString*)selectorName
-       onViewController:(id)onViewController;
+    title:(NSString*)title
+    withMaxNumberOfItems:(NSInteger)maxNumberOfItems
+    withSelector:(NSString*)selectorName
+    onViewController:(id)onViewController;
 
 @end
 
@@ -64,15 +64,16 @@ _Pragma("clang diagnostic pop") \
 @property (strong, nonatomic) UILabel *descriptionLabel;
 @end
 
-@interface MHShareViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
+@interface MHShareViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 
-@property(nonatomic,strong) UICollectionView *collectionView;
-@property(nonatomic,strong) UITableView *tableViewShare;
-@property(nonatomic,strong) UIView *gradientView;
-@property(nonatomic,strong) UIToolbar *toolbar;
+@property(nonatomic, strong) UICollectionView *collectionView;
+@property(nonatomic, strong) UITableView *tableViewShare;
+@property(nonatomic, strong) UIView *gradientView;
+@property(nonatomic, strong) UIToolbar *toolbar;
 @property(nonatomic)        NSInteger pageIndex;
-@property(nonatomic,strong) NSArray *galleryItems;
+@property(nonatomic, strong) NSArray *galleryItems;
 
 @property (nonatomic, copy) void (^finishedCallbackDownloadData)(NSArray *images);
 
 @end
+

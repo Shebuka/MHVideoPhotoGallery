@@ -10,12 +10,13 @@
 #import "MHUIImageViewContentViewAnimation.h"
 
 @interface MHTransitionPresentMHGallery : UIPercentDrivenInteractiveTransition<UIViewControllerAnimatedTransitioning>
-@property (nonatomic,strong)    MHUIImageViewContentViewAnimation *transitionImageView;
-@property (nonatomic,strong)    UIImageView *presentingImageView;
-@property (nonatomic,assign)    CGFloat angle;
-@property (nonatomic,assign)    CGFloat scale;
-@property (nonatomic,assign)    CGPoint changedPoint;
-@property (nonatomic,assign)    id <UIViewControllerContextTransitioning> context;
-@property (nonatomic,assign)    BOOL interactive;
+@property (nonatomic, strong)    MHUIImageViewContentViewAnimation *transitionImageView;
+@property (nonatomic, strong)    UIImageView *presentingImageView;
+@property (nonatomic, assign)    CGFloat angle;
+@property (nonatomic, assign)    CGFloat scale;
+@property (nonatomic, assign)    CGPoint changedPoint;
+@property (nonatomic, assign)    id <UIViewControllerContextTransitioning> context;
+@property (nonatomic, assign)    BOOL interactive;
 
 @end
+

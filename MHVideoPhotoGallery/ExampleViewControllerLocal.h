@@ -13,12 +13,12 @@
 @property (nonatomic, strong) NSArray *galleryItems;
 
 
-- (id)initWithSectionName:(NSString*)sectionName
-                    items:(NSArray*)galleryItems;
+- (id)initWithSectionName:(NSString*)sectionName items:(NSArray*)galleryItems;
 
 @end
 
 
-@interface ExampleViewControllerLocal : UIViewController<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic,strong) IBOutlet UITableView *tableView;
+@interface ExampleViewControllerLocal : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @end
+

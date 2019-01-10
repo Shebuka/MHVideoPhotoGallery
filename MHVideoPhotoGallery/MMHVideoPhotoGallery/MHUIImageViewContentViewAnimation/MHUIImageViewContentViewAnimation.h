@@ -10,10 +10,11 @@
 
 @interface MHUIImageViewContentViewAnimation : UIImageView
 
--(UIImage*)imageMH;
--(void)animateToViewMode:(UIViewContentMode)contenMode
-                forFrame:(CGRect)frame
-            withDuration:(float)duration
-              afterDelay:(float)delay
-                finished:(void (^)(BOOL finished))finishedBlock;
+- (UIImage*)imageMH;
+- (void)animateToViewMode:(UIViewContentMode)contenMode
+    forFrame:(CGRect)frame
+    withDuration:(float)duration
+    afterDelay:(float)delay
+    finished:(void (^)(BOOL finished))finishedBlock;
 @end
+

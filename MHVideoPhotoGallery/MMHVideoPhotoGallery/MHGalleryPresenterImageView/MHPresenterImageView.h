@@ -18,25 +18,26 @@
 
 @property (nonatomic)       BOOL shoudlUsePanGestureReconizer;
 /**
- *  set your Current ViewController
- */
-@property (nonatomic,strong) UIViewController *viewController;
+  *  set your Current ViewController
+  */
+@property (nonatomic, strong) UIViewController *viewController;
 /**
- *  set your the Data Source
- */
-@property (nonatomic,strong) NSArray *galleryItems;
+  *  set your the Data Source
+  */
+@property (nonatomic, strong) NSArray *galleryItems;
 /**
- *  set the currentIndex
- */
+  *  set the currentIndex
+  */
 @property (nonatomic)        NSInteger currentImageIndex;
 
-@property (nonatomic, copy) void (^finishedCallback)(NSInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode);
+@property (nonatomic, copy) void (^finishedCallback)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode);
 
-@property (nonatomic,strong) MHTransitionPresentMHGallery *presenter;
+@property (nonatomic, strong) MHTransitionPresentMHGallery *presenter;
 
--(void)setInseractiveGalleryPresentionWithItems:(NSArray*)galleryItems
-                              currentImageIndex:(NSInteger)currentImageIndex
-                          currentViewController:(UIViewController*)viewController
-                                 finishCallback:(void(^)(NSInteger currentIndex,UIImage *image,MHTransitionDismissMHGallery *interactiveTransition,MHGalleryViewMode viewMode)
-                                                 )FinishBlock;
+- (void)setInseractiveGalleryPresentionWithItems:(NSArray*)galleryItems
+    currentImageIndex:(NSInteger)currentImageIndex
+    currentViewController:(UIViewController*)viewController
+    finishCallback:(void (^)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode)
+                    )FinishBlock;
 @end
+

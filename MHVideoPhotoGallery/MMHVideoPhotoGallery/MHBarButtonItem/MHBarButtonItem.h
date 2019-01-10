@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-typedef NS_ENUM(NSUInteger, MHBarButtonItemType) {
+typedef NS_ENUM (NSUInteger, MHBarButtonItemType) {
     MHBarButtonItemTypeLeft,
     MHBarButtonItemTypeRigth,
     MHBarButtonItemTypePlayPause,
@@ -22,3 +22,4 @@ typedef NS_ENUM(NSUInteger, MHBarButtonItemType) {
 @interface MHBarButtonItem : UIBarButtonItem
 @property (nonatomic) MHBarButtonItemType type;
 @end
+
