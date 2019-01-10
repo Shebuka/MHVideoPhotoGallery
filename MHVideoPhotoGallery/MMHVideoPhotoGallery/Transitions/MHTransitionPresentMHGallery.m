@@ -58,11 +58,11 @@
     
     if (self.presentingImageView.contentMode == UIViewContentModeScaleAspectFill) {
         [cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
-         forFrame:toViewController.view.bounds
-         withDuration:duration
-         afterDelay:0
-         finished:^(BOOL finished) {
-         }];
+                                    forFrame:toViewController.view.bounds
+                                withDuration:duration
+                                  afterDelay:0
+                                    finished:^(BOOL finished) {
+                                    }];
     }
     
     if (self.presentingImageView.contentMode == UIViewContentModeScaleAspectFit) {
@@ -70,30 +70,30 @@
     }
     
     [UIView animateWithDuration:duration animations:^{
-         cellImageSnapshot.layer.cornerRadius = 0;
-         
-         if (self.presentingImageView.contentMode == UIViewContentModeScaleAspectFit) {
-             cellImageSnapshot.frame = toViewController.view.bounds;
-         }
-         backView.alpha = 1;
-     } completion:^(BOOL finished) {
-         [UIView animateWithDuration:0.1 animations:^{
-              cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.02, 1.02);
-          } completion:^(BOOL finished) {
-              [UIView animateWithDuration:0.1 animations:^{
-                   cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.00, 1.00);
-               } completion:^(BOOL finished) {
-                   [UIView animateWithDuration:0.35 animations:^{
-                        toViewController.view.alpha = 1.0;
-                        
-                    } completion:^(BOOL finished) {
-                        self.presentingImageView.hidden = NO;
-                        [cellImageSnapshot removeFromSuperview];
-                        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-                    }];
-               }];
-          }];
-     }];
+        cellImageSnapshot.layer.cornerRadius = 0;
+        
+        if (self.presentingImageView.contentMode == UIViewContentModeScaleAspectFit) {
+            cellImageSnapshot.frame = toViewController.view.bounds;
+        }
+        backView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.02, 1.02);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 animations:^{
+                cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.00, 1.00);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.35 animations:^{
+                    toViewController.view.alpha = 1.0;
+                    
+                } completion:^(BOOL finished) {
+                    self.presentingImageView.hidden = NO;
+                    [cellImageSnapshot removeFromSuperview];
+                    [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+                }];
+            }];
+        }];
+    }];
 }
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return 0.3;
@@ -149,24 +149,24 @@
     
     
     [UIView animateWithDuration:[self timeForUnrotet] animations:^{
-         self.transitionImageView.transform = [self rotateToZeroAffineTranform];
-     } completion:^(BOOL finished) {
-         CGRect currentFrame = self.transitionImageView.frame;
-         self.transitionImageView.transform = CGAffineTransformIdentity;
-         self.transitionImageView.frame = currentFrame;
-         
-         [UIView animateWithDuration:0.3 animations:^{
-              self.backView.alpha = 0;
-              self.transitionImageView.frame = self.startFrame;
-          } completion:^(BOOL finished) {
-              self.presentingImageView.hidden = NO;
-              
-              [self.transitionImageView removeFromSuperview];
-              [self.backView removeFromSuperview];
-              [self.context completeTransition:NO];
-          }];
-         
-     }];
+        self.transitionImageView.transform = [self rotateToZeroAffineTranform];
+    } completion:^(BOOL finished) {
+        CGRect currentFrame = self.transitionImageView.frame;
+        self.transitionImageView.transform = CGAffineTransformIdentity;
+        self.transitionImageView.frame = currentFrame;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backView.alpha = 0;
+            self.transitionImageView.frame = self.startFrame;
+        } completion:^(BOOL finished) {
+            self.presentingImageView.hidden = NO;
+            
+            [self.transitionImageView removeFromSuperview];
+            [self.backView removeFromSuperview];
+            [self.context completeTransition:NO];
+        }];
+        
+    }];
 }
 
 - (CGFloat)timeForUnrotet {
@@ -183,31 +183,31 @@
     MHGalleryImageViewerViewController *imageViewer = self.interactiveToViewController.viewControllers.lastObject;
     
     [UIView animateWithDuration:[self timeForUnrotet] animations:^{
-         self.transitionImageView.transform = [self rotateToZeroAffineTranform];
-         
-     } completion:^(BOOL finished) {
-         
-         CGRect currentFrame = self.transitionImageView.frame;
-         
-         self.transitionImageView.transform = CGAffineTransformIdentity;
-         self.transitionImageView.frame = currentFrame;
-         self.transitionImageView.contentMode = UIViewContentModeScaleAspectFit;
-         
-         [UIView animateWithDuration:0.3 animations:^{
-              self.backView.alpha = 1;
-          }];
-         
-         [self.transitionImageView animateToViewMode:UIViewContentModeScaleAspectFit forFrame:imageViewer.view.bounds withDuration:0.3 afterDelay:0 finished:^(BOOL finished) {
-              [UIView animateWithDuration:0.2 animations:^{
-                   self.interactiveToViewController.view.alpha = 1;
-               } completion:^(BOOL finished) {
-                   self.presentingImageView.hidden = NO;
-                   [self.transitionImageView removeFromSuperview];
-                   [self.backView removeFromSuperview];
-                   [self.context completeTransition:YES];
-               }];
-          }];
-     }];
+        self.transitionImageView.transform = [self rotateToZeroAffineTranform];
+        
+    } completion:^(BOOL finished) {
+        
+        CGRect currentFrame = self.transitionImageView.frame;
+        
+        self.transitionImageView.transform = CGAffineTransformIdentity;
+        self.transitionImageView.frame = currentFrame;
+        self.transitionImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backView.alpha = 1;
+        }];
+        
+        [self.transitionImageView animateToViewMode:UIViewContentModeScaleAspectFit forFrame:imageViewer.view.bounds withDuration:0.3 afterDelay:0 finished:^(BOOL finished) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.interactiveToViewController.view.alpha = 1;
+            } completion:^(BOOL finished) {
+                self.presentingImageView.hidden = NO;
+                [self.transitionImageView removeFromSuperview];
+                [self.backView removeFromSuperview];
+                [self.context completeTransition:YES];
+            }];
+        }];
+    }];
 }
 
 @end

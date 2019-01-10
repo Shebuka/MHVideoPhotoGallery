@@ -52,7 +52,7 @@ typedef NS_ENUM (NSUInteger, MHYoutubeThumbQuality) {
 
 
 @interface MHGallerySharedManager : NSObject
-    
+
 /**
   *  default is MHYoutubeThumbQualityHQ
   */
@@ -87,45 +87,45 @@ typedef NS_ENUM (NSUInteger, MHYoutubeThumbQuality) {
   *  @param succeedBlock returns the image the duration of the video and an error
   */
 - (void)startDownloadingThumbImage:(NSString*)urlString
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock;
+                      successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock;
 
 
 - (BOOL)isUIViewControllerBasedStatusBarAppearance;
 
 /**
-  *  To get the absolute URL for Vimeo Videos. To change the Quality check vimeoVideoQuality
-  *
-  *  @param URL          The URL as a String
-  *  @param succeedBlock you will get the absolute URL
-  */
+ *  To get the absolute URL for Vimeo Videos. To change the Quality check vimeoVideoQuality
+ *
+ *  @param URL          The URL as a String
+ *  @param succeedBlock you will get the absolute URL
+ */
 
 - (void)getURLForMediaPlayer:(NSString*)URLString
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
+                successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
 
 - (void)getVimeoURLforMediaPlayer:(NSString*)URL
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
+                     successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
 /**
-  *  To get the absolute URL for Youtube Videos. To change the Quality check youtubeVideoQuality
-  *
-  *  @param URL          The URL as a String
-  *  @param succeedBlock you will get the absolute URL
-  */
+ *  To get the absolute URL for Youtube Videos. To change the Quality check youtubeVideoQuality
+ *
+ *  @param URL          The URL as a String
+ *  @param succeedBlock you will get the absolute URL
+ */
 - (void)getYoutubeURLforMediaPlayer:(NSString*)URL
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
+                       successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock;
 
 - (void)getImageFromAssetLibrary:(NSString*)urlString
-    assetType:(MHAssetImageType)type
-    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock;
+                       assetType:(MHAssetImageType)type
+                    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock;
 /**
-  *  Returns all MHGalleryObjects for a Youtube channel
-  *
-  *  @param channelName  set the name of the channel
-  *  @param withTitle    if you want the title of the video set it to YES
-  *  @param succeedBlock returns the Gallery items
-  */
+ *  Returns all MHGalleryObjects for a Youtube channel
+ *
+ *  @param channelName  set the name of the channel
+ *  @param withTitle    if you want the title of the video set it to YES
+ *  @param succeedBlock returns the Gallery items
+ */
 - (void)getMHGalleryObjectsForYoutubeChannel:(NSString*)channelName
-    withTitle:(BOOL)withTitle
-    successBlock:(void (^)(NSArray *MHGalleryObjects, NSError *error))succeedBlock;
+                                   withTitle:(BOOL)withTitle
+                                successBlock:(void (^)(NSArray *MHGalleryObjects, NSError *error))succeedBlock;
 
 @end
 

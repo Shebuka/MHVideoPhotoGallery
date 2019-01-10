@@ -61,11 +61,11 @@
     CGRect cellFrame = [toViewController.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentPage inSection:0]].frame;
     
     [toViewController.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentPage inSection:0]
-     atScrollPosition:UICollectionViewScrollPositionCenteredVertically
-     animated:NO];
+                                            atScrollPosition:UICollectionViewScrollPositionCenteredVertically
+                                                    animated:NO];
     
     [toViewController.collectionView scrollRectToVisible:cellFrame
-     animated:NO];
+                                                animated:NO];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         MHMediaPreviewCollectionViewCell *cellNew = (MHMediaPreviewCollectionViewCell*)[toViewController.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.currentPage inSection:0]];
@@ -81,26 +81,26 @@
         [snapShot removeFromSuperview];
         
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-             fromViewController.view.alpha = 0.0;
-             cellImageSnapshot.frame = [containerView convertRect:cellNew.thumbnail.frame fromView:cellNew.thumbnail.superview];
-             cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
-         } completion:^(BOOL finished) {
-             
-             if (MHGalleryOSVersion < 8.0) {
-                 [toViewController.collectionView reloadData];
-             }
-             
-             [cellImageSnapshot removeFromSuperview];
-             imageView.hidden = NO;
-             cellNew.thumbnail.hidden = NO;
-             
-             if (!videoIconsHidden) {
-                 cellNew.videoGradient.hidden = NO;
-                 cellNew.videoDurationLength.hidden = NO;
-                 cellNew.videoIcon.hidden = NO;
-             }
-             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-         }];
+            fromViewController.view.alpha = 0.0;
+            cellImageSnapshot.frame = [containerView convertRect:cellNew.thumbnail.frame fromView:cellNew.thumbnail.superview];
+            cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
+        } completion:^(BOOL finished) {
+            
+            if (MHGalleryOSVersion < 8.0) {
+                [toViewController.collectionView reloadData];
+            }
+            
+            [cellImageSnapshot removeFromSuperview];
+            imageView.hidden = NO;
+            cellNew.thumbnail.hidden = NO;
+            
+            if (!videoIconsHidden) {
+                cellNew.videoGradient.hidden = NO;
+                cellNew.videoDurationLength.hidden = NO;
+                cellNew.videoIcon.hidden = NO;
+            }
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        }];
     });
 }
 
@@ -177,11 +177,11 @@
     CGRect cellFrame = [self.toViewController.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:self.toViewController.currentPage inSection:0]].frame;
     
     [self.toViewController.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.toViewController.currentPage inSection:0]
-     atScrollPosition:UICollectionViewScrollPositionCenteredVertically
-     animated:NO];
+                                                 atScrollPosition:UICollectionViewScrollPositionCenteredVertically
+                                                         animated:NO];
     
     [self.toViewController.collectionView scrollRectToVisible:cellFrame
-     animated:NO];
+                                                     animated:NO];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.cellInteractive = (MHMediaPreviewCollectionViewCell*)[self.toViewController.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.toViewController.currentPage inSection:0]];
@@ -203,29 +203,29 @@
     self.transitionImageView.frame = frame;
     
     [UIView animateWithDuration:0.3 animations:^{
-         if (self.isHiddingToolBarAndNavigationBar) {
-             self.toViewController.navigationController.navigationBar.alpha = 1;
-             MHStatusBar().alpha = MHShouldShowStatusBar() ? 1 : 0;
-         }
-         self.toolbar.alpha = 0;
-         self.titleLabel.alpha = 0;
-         self.descriptionLabel.alpha = 0;
-         self.backView.alpha = 0;
-         self.titleViewBackgroundToolbar.alpha = 0;
-         self.descriptionViewBackgroundToolbar.alpha = 0;
-         self.transitionImageView.frame = [containerView convertRect:self.cellInteractive.thumbnail.frame fromView:self.cellInteractive.thumbnail.superview];
-         self.transitionImageView.contentMode = UIViewContentModeScaleAspectFill;
-     } completion:^(BOOL finished) {
-         self.cellInteractive.thumbnail.hidden = NO;
-         [self.titleLabel removeFromSuperview];
-         [self.descriptionLabel removeFromSuperview];
-         [self.toolbar removeFromSuperview];
-         [self.transitionImageView removeFromSuperview];
-         [self.backView removeFromSuperview];
-         [self.titleViewBackgroundToolbar removeFromSuperview];
-         [self.descriptionViewBackgroundToolbar removeFromSuperview];
-         [self.context completeTransition:YES];
-     }];
+        if (self.isHiddingToolBarAndNavigationBar) {
+            self.toViewController.navigationController.navigationBar.alpha = 1;
+            MHStatusBar().alpha = MHShouldShowStatusBar() ? 1 : 0;
+        }
+        self.toolbar.alpha = 0;
+        self.titleLabel.alpha = 0;
+        self.descriptionLabel.alpha = 0;
+        self.backView.alpha = 0;
+        self.titleViewBackgroundToolbar.alpha = 0;
+        self.descriptionViewBackgroundToolbar.alpha = 0;
+        self.transitionImageView.frame = [containerView convertRect:self.cellInteractive.thumbnail.frame fromView:self.cellInteractive.thumbnail.superview];
+        self.transitionImageView.contentMode = UIViewContentModeScaleAspectFill;
+    } completion:^(BOOL finished) {
+        self.cellInteractive.thumbnail.hidden = NO;
+        [self.titleLabel removeFromSuperview];
+        [self.descriptionLabel removeFromSuperview];
+        [self.toolbar removeFromSuperview];
+        [self.transitionImageView removeFromSuperview];
+        [self.backView removeFromSuperview];
+        [self.titleViewBackgroundToolbar removeFromSuperview];
+        [self.descriptionViewBackgroundToolbar removeFromSuperview];
+        [self.context completeTransition:YES];
+    }];
     
 }
 
@@ -238,30 +238,30 @@
     self.transitionImageView.frame = frame;
     
     [UIView animateWithDuration:0.4 animations:^{
-         if (self.isHiddingToolBarAndNavigationBar) {
-             self.toViewController.navigationController.navigationBar.alpha = 0;
-         }
-         self.backView.alpha = 1;
-         self.toolbar.alpha = 1;
-         self.titleLabel.alpha = 1;
-         self.descriptionLabel.alpha = 1;
-         self.backView.alpha = 1;
-         self.titleViewBackgroundToolbar.alpha = 1;
-         self.descriptionViewBackgroundToolbar.alpha = 1;
-         self.transitionImageView.frame = self.startFrame;
-     } completion:^(BOOL finished) {
-         if (self.isHiddingToolBarAndNavigationBar) {
-             self.toViewController.navigationController.navigationBar.hidden = YES;
-         }
-         [self.cellInteractive.thumbnail setHidden:NO];
-         [self.backView removeFromSuperview];
-         [self.transitionImageView removeFromSuperview];
-         
-         MHImageViewController *imageViewerViewController = [fromViewController.pageViewController.viewControllers firstObject];
-         imageViewerViewController.imageView.hidden = NO;
-         imageViewerViewController.scrollView.zoomScale = 1;
-         [self.context completeTransition:NO];
-     }];
+        if (self.isHiddingToolBarAndNavigationBar) {
+            self.toViewController.navigationController.navigationBar.alpha = 0;
+        }
+        self.backView.alpha = 1;
+        self.toolbar.alpha = 1;
+        self.titleLabel.alpha = 1;
+        self.descriptionLabel.alpha = 1;
+        self.backView.alpha = 1;
+        self.titleViewBackgroundToolbar.alpha = 1;
+        self.descriptionViewBackgroundToolbar.alpha = 1;
+        self.transitionImageView.frame = self.startFrame;
+    } completion:^(BOOL finished) {
+        if (self.isHiddingToolBarAndNavigationBar) {
+            self.toViewController.navigationController.navigationBar.hidden = YES;
+        }
+        [self.cellInteractive.thumbnail setHidden:NO];
+        [self.backView removeFromSuperview];
+        [self.transitionImageView removeFromSuperview];
+        
+        MHImageViewController *imageViewerViewController = [fromViewController.pageViewController.viewControllers firstObject];
+        imageViewerViewController.imageView.hidden = NO;
+        imageViewerViewController.scrollView.zoomScale = 1;
+        [self.context completeTransition:NO];
+    }];
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {

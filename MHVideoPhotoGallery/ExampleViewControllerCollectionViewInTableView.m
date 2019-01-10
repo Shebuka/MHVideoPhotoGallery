@@ -58,13 +58,13 @@
     
     
     MHGalleryItem *tailored = [MHGalleryItem.alloc initWithURL:@"http://www.tailored-apps.com/wp-content/uploads/2014/01/wien_cropped-350x300.jpg"
-                               galleryType:MHGalleryTypeImage];
+                                                   galleryType:MHGalleryTypeImage];
     
     MHGalleryItem *tailored2 = [MHGalleryItem.alloc initWithURL:@"http://www.tailored-apps.com/wp-content/uploads/2014/01/hannes.jpg"
-                                galleryType:MHGalleryTypeImage];
+                                                    galleryType:MHGalleryTypeImage];
     
     MHGalleryItem *tailored3 = [MHGalleryItem.alloc initWithURL:@"http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"
-                                galleryType:MHGalleryTypeVideo];
+                                                    galleryType:MHGalleryTypeVideo];
     
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor blackColor];
@@ -76,7 +76,7 @@
     [string setAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15],
                              NSForegroundColorAttributeName : UIColor.whiteColor,
                              NSShadowAttributeName : shadow }
-     range:NSMakeRange(0, string.length)];
+                    range:NSMakeRange(0, string.length)];
     
     
     NSMutableAttributedString *string2 = [[NSMutableAttributedString alloc]initWithString:@"elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."];
@@ -84,13 +84,13 @@
     [string2 setAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15],
                               NSForegroundColorAttributeName : UIColor.whiteColor,
                               NSShadowAttributeName : shadow }
-     range:NSMakeRange(0, string2.length)];
+                     range:NSMakeRange(0, string2.length)];
     
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"Title Test\nderIstgeil"];
     [title setAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:15],
                             NSForegroundColorAttributeName : UIColor.whiteColor,
                             NSShadowAttributeName : shadow }
-     range:NSMakeRange(0, title.length)];
+                   range:NSMakeRange(0, title.length)];
     
     tailored.attributedString = string;
     tailored.attributedTitle = title;
@@ -191,14 +191,14 @@
     gallery.finishedCallback = ^(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
         if (viewMode == MHGalleryViewModeOverView) {
             [blockGallery dismissViewControllerAnimated:YES completion:^{
-                 [self setNeedsStatusBarAppearanceUpdate];
-             }];
+                [self setNeedsStatusBarAppearanceUpdate];
+            }];
         }
         else {
             NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:currentIndex inSection:0];
             CGRect cellFrame = [[collectionView collectionViewLayout] layoutAttributesForItemAtIndexPath:newIndexPath].frame;
             [collectionView scrollRectToVisible:cellFrame
-             animated:NO];
+                                       animated:NO];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [collectionView reloadItemsAtIndexPaths:@[newIndexPath]];
@@ -207,16 +207,16 @@
                 MHMediaPreviewCollectionViewCell *cell = (MHMediaPreviewCollectionViewCell*)[collectionView cellForItemAtIndexPath:newIndexPath];
                 
                 [blockGallery dismissViewControllerAnimated:YES dismissImageView:cell.thumbnail completion:^{
-                     
-                     [self setNeedsStatusBarAppearanceUpdate];
-                     
-                     MPMoviePlayerController *player = interactiveTransition.moviePlayer;
-                     
-                     player.controlStyle = MPMovieControlStyleEmbedded;
-                     player.view.frame = cell.bounds;
-                     player.scalingMode = MPMovieScalingModeAspectFill;
-                     [cell.contentView addSubview:player.view];
-                 }];
+                    
+                    [self setNeedsStatusBarAppearanceUpdate];
+                    
+                    MPMoviePlayerController *player = interactiveTransition.moviePlayer;
+                    
+                    player.controlStyle = MPMovieControlStyleEmbedded;
+                    player.view.frame = cell.bounds;
+                    player.scalingMode = MPMovieScalingModeAspectFill;
+                    [cell.contentView addSubview:player.view];
+                }];
             });
         }
     };

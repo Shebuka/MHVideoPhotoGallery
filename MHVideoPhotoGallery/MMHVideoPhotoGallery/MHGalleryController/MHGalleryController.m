@@ -80,14 +80,14 @@
 @implementation UIViewController (MHGalleryViewController)
 
 - (void)presentMHGalleryController:(MHGalleryController *)galleryController
-    animated:(BOOL)animated
-    completion:(void (^)(void))completion {
+                          animated:(BOOL)animated
+                        completion:(void (^)(void))completion {
     
     if (galleryController.UICustomization.useCustomBackButtonImageOnImageViewer) {
         UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
-                                          style:UIBarButtonItemStylePlain
-                                          target:self
-                                          action:nil];
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:nil];
         galleryController.overViewViewController.navigationItem.backBarButtonItem = backBarButton;
         galleryController.navigationBar.tintColor = galleryController.UICustomization.barButtonsTintColor;
     }
@@ -172,8 +172,8 @@
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
-    presentingController:(UIViewController *)presenting
-    sourceController:(UIViewController *)source {
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source {
     UINavigationController *nav = (UINavigationController*)presented;
     if ([nav isKindOfClass:[UINavigationController class]] && [nav.viewControllers.lastObject isKindOfClass:MHGalleryImageViewerViewController.class]) {
         MHGalleryImageViewerViewController *imageViewer = nav.viewControllers.lastObject;

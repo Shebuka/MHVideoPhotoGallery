@@ -21,7 +21,7 @@
 @implementation MHImageURL
 
 - (id)initWithURL:(NSString*)URL
-    image:(UIImage*)image {
+            image:(UIImage*)image {
     self = [super init];
     if (!self)
         return nil;
@@ -67,20 +67,20 @@
     self.cancelDownloadButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.cancelDownloadButton
-                                  attribute:NSLayoutAttributeBottom
-                                  relatedBy:NSLayoutRelationEqual
-                                  toItem:self.blurBackgroundToolbar
-                                  attribute:NSLayoutAttributeBottom
-                                  multiplier:1
-                                  constant:-5];
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.blurBackgroundToolbar
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1
+                                                               constant:-5];
     
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.cancelDownloadButton
-                                   attribute:NSLayoutAttributeCenterX
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self.blurBackgroundToolbar
-                                   attribute:NSLayoutAttributeCenterX
-                                   multiplier:1.f
-                                   constant:0.f];
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.blurBackgroundToolbar
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.f
+                                                                constant:0.f];
     
     [self.blurBackgroundToolbar addConstraint:bottom];
     [self.blurBackgroundToolbar addConstraint:centerX];
@@ -101,10 +101,10 @@
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString.alloc initWithString:[NSString stringWithFormat:@"%@%@", downloadDataString, numberTitle]];
     [attributedString setAttributes:@{ NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:30] }
-     range:NSMakeRange(0, downloadDataString.length)];
+                              range:NSMakeRange(0, downloadDataString.length)];
     
     [attributedString setAttributes:@{ NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:20] }
-     range:NSMakeRange(downloadDataString.length, numberTitle.length)];
+                              range:NSMakeRange(downloadDataString.length, numberTitle.length)];
     
     self.downloadDataLabel.attributedText = attributedString;
 }
@@ -116,10 +116,10 @@
 @implementation MHShareItem
 
 - (id)initWithImageName:(NSString*)imageName
-    title:(NSString*)title
-    withMaxNumberOfItems:(NSInteger)maxNumberOfItems
-    withSelector:(NSString*)selectorName
-    onViewController:(id)onViewController {
+                  title:(NSString*)title
+   withMaxNumberOfItems:(NSInteger)maxNumberOfItems
+           withSelector:(NSString*)selectorName
+       onViewController:(id)onViewController {
     self = [super init];
     if (!self)
         return nil;
@@ -146,12 +146,12 @@
     
     
     _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
-                       collectionViewLayout:layout];
+                                         collectionViewLayout:layout];
     
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     [self.collectionView registerClass:MHMediaPreviewCollectionViewCell.class
-     forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
+            forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
     
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.collectionView];
@@ -220,34 +220,34 @@
     
     
     self.saveObject = [MHShareItem.alloc initWithImageName:@"activtyMH"
-                       title:MHGalleryLocalizedString(@"shareview.save.cameraRoll")
-                       withMaxNumberOfItems:MAXFLOAT
-                       withSelector:@"saveImages:"
-                       onViewController:self];
+                                                     title:MHGalleryLocalizedString(@"shareview.save.cameraRoll")
+                                      withMaxNumberOfItems:MAXFLOAT
+                                              withSelector:@"saveImages:"
+                                          onViewController:self];
     
     self.mailObject = [MHShareItem.alloc initWithImageName:@"mailMH"
-                       title:MHGalleryLocalizedString(@"shareview.mail")
-                       withMaxNumberOfItems:10
-                       withSelector:@"mailImages:"
-                       onViewController:self];
+                                                     title:MHGalleryLocalizedString(@"shareview.mail")
+                                      withMaxNumberOfItems:10
+                                              withSelector:@"mailImages:"
+                                          onViewController:self];
     
     self.messageObject = [MHShareItem.alloc initWithImageName:@"messageMH"
-                          title:MHGalleryLocalizedString(@"shareview.message")
-                          withMaxNumberOfItems:15
-                          withSelector:@"smsImages:"
-                          onViewController:self];
+                                                        title:MHGalleryLocalizedString(@"shareview.message")
+                                         withMaxNumberOfItems:15
+                                                 withSelector:@"smsImages:"
+                                             onViewController:self];
     
     self.twitterObject = [MHShareItem.alloc initWithImageName:@"twitterMH"
-                          title:@"Twitter"
-                          withMaxNumberOfItems:2
-                          withSelector:@"twShareImages:"
-                          onViewController:self];
+                                                        title:@"Twitter"
+                                         withMaxNumberOfItems:2
+                                                 withSelector:@"twShareImages:"
+                                             onViewController:self];
     
     self.faceBookObject = [MHShareItem.alloc initWithImageName:@"facebookMH"
-                           title:@"Facebook"
-                           withMaxNumberOfItems:10
-                           withSelector:@"fbShareImages:"
-                           onViewController:self];
+                                                         title:@"Facebook"
+                                          withMaxNumberOfItems:10
+                                                  withSelector:@"fbShareImages:"
+                                              onViewController:self];
 }
 
 - (void)cancelPressed {
@@ -266,8 +266,8 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView*)scrollView
-    withVelocity:(CGPoint)velocity
-    targetContentOffset:(inout CGPoint*)targetContentOffset {
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint*)targetContentOffset {
     
     NSArray *visibleCells = [self sortObjectsWithFrame:self.collectionView.visibleCells];
     MHMediaPreviewCollectionViewCell *cell;
@@ -294,9 +294,9 @@
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-    animationControllerForOperation:(UINavigationControllerOperation)operation
-    fromViewController:(UIViewController *)fromVC
-    toViewController:(UIViewController *)toVC {
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC {
     return MHTransitionShowShareView.new;
 }
 
@@ -308,8 +308,8 @@
     self.navigationItem.hidesBackButton = YES;
     
     UIBarButtonItem *cancelBarButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                        target:self
-                                        action:@selector(cancelPressed)];
+                                                                                   target:self
+                                                                                   action:@selector(cancelPressed)];
     
     self.navigationItem.leftBarButtonItem = cancelBarButton;
     
@@ -319,7 +319,7 @@
     flowLayout.minimumInteritemSpacing = 20;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 60, 0, 0);
     self.collectionView = [UICollectionView.alloc initWithFrame:CGRectZero
-                           collectionViewLayout:flowLayout];
+                                           collectionViewLayout:flowLayout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.allowsMultipleSelection = YES;
@@ -327,23 +327,23 @@
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.backgroundColor = UIColor.whiteColor;
     [self.collectionView registerClass:MHMediaPreviewCollectionViewCell.class
-     forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
+            forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
     
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
     [self.view addSubview:self.collectionView];
     
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.left.mas_equalTo(self.view.mas_left);
-         make.top.mas_equalTo(self.view.mas_top);
-         make.right.mas_equalTo(self.view.mas_right);
-     }];
+        make.left.mas_equalTo(self.view.mas_left);
+        make.top.mas_equalTo(self.view.mas_top);
+        make.right.mas_equalTo(self.view.mas_right);
+    }];
     
     [self.selectedRows addObject:[NSIndexPath indexPathForRow:self.pageIndex inSection:0]];
     
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.pageIndex inSection:0]
-     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-     animated:NO];
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
     
     self.gradientView = [UIView.alloc initWithFrame:CGRectMake(0, self.view.frame.size.height - 240, self.view.frame.size.width, 240)];
     
@@ -365,7 +365,7 @@
     self.tableViewShare.backgroundColor = UIColor.clearColor;
     self.tableViewShare.scrollEnabled = NO;
     [self.tableViewShare registerClass:MHCollectionViewTableViewCell.class
-     forCellReuseIdentifier:NSStringFromClass(MHCollectionViewTableViewCell.class)];
+                forCellReuseIdentifier:NSStringFromClass(MHCollectionViewTableViewCell.class)];
     [self.view addSubview:self.tableViewShare];
     
     UIView *sep = [UIView.alloc initWithFrame:CGRectMake(0, 115, self.view.frame.size.width, 1)];
@@ -374,12 +374,12 @@
     [self.tableViewShare addSubview:sep];
     
     [self.tableViewShare mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.top.mas_equalTo(self.collectionView.mas_bottom);
-         make.left.mas_equalTo(self.view.mas_left);
-         make.bottom.mas_equalTo(self.view.mas_bottom);
-         make.right.mas_equalTo(self.view.mas_right);
-         make.height.mas_equalTo(240);
-     }];
+        make.top.mas_equalTo(self.collectionView.mas_bottom);
+        make.left.mas_equalTo(self.view.mas_left);
+        make.bottom.mas_equalTo(self.view.mas_bottom);
+        make.right.mas_equalTo(self.view.mas_right);
+        make.height.mas_equalTo(240);
+    }];
     
     
     [self initShareObjects];
@@ -400,7 +400,7 @@
     
     self.shareDataSource = [NSMutableArray arrayWithArray:@[shareObjectAvailable,
                                                             @[[self saveObject]]
-    ]];
+                                                            ]];
     
     self.shareDataSourceStart = [NSArray arrayWithArray:self.shareDataSource];
     if (UIApplication.sharedApplication.statusBarOrientation != UIInterfaceOrientationPortrait) {
@@ -413,14 +413,14 @@
     [super viewDidLayoutSubviews];
     
     [self.tableViewShare mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.bottom.mas_equalTo(self.view.mas_bottom).with.offset(UIApplication.sharedApplication.statusBarOrientation == UIInterfaceOrientationPortrait ? 0 : 240);
-     }];
+        make.bottom.mas_equalTo(self.view.mas_bottom).with.offset(UIApplication.sharedApplication.statusBarOrientation == UIInterfaceOrientationPortrait ? 0 : 240);
+    }];
     
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
-    layout:(UICollectionViewLayout*)collectionViewLayout
-    sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([collectionView isEqual:self.collectionView]) {
         return CGSizeMake(MHISIPAD ? 320 : 240, collectionView.bounds.size.height - collectionView.contentInset.top);
@@ -458,7 +458,7 @@
     cell.collectionView.collectionViewLayout = layout;
     
     [cell.collectionView registerClass:MHShareCell.class
-     forCellWithReuseIdentifier:NSStringFromClass(MHShareCell.class)];
+            forCellWithReuseIdentifier:NSStringFromClass(MHShareCell.class)];
     
     cell.collectionView.showsHorizontalScrollIndicator = NO;
     cell.collectionView.delegate = self;
@@ -584,7 +584,7 @@
         
         MHMediaPreviewCollectionViewCell *cell = [visibleCells lastObject];
         CGRect rect = [self.view convertRect:cell.thumbnail.frame
-                       fromView:cell.thumbnail.superview];
+                                    fromView:cell.thumbnail.superview];
         
         NSInteger valueToAddYForVideoType = 0;
         if (!cell.videoIcon.isHidden) {
@@ -633,29 +633,29 @@
     __weak typeof(self) weakSelf = self;
     
     [self getAllImagesForSelectedRows:^(NSArray *images) {
-         SLComposeViewController *shareconntroller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
-         SLComposeViewControllerCompletionHandler completionHandler = ^(SLComposeViewControllerResult result) {
-             
-             [shareconntroller dismissViewControllerAnimated:YES
-              completion:^{
-                  [weakSelf cancelPressed];
-              }];
-         };
-         NSString *videoURLS = NSString.new;
-         for (MHImageURL *dataURL in images) {
-             if ([dataURL.image isKindOfClass:UIImage.class] && !dataURL.image.images) {
-                 [shareconntroller addImage:dataURL.image];
-             }
-             else {
-                 videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
-             }
-         }
-         [shareconntroller setInitialText:videoURLS];
-         [shareconntroller setCompletionHandler:completionHandler];
-         [self presentViewController:shareconntroller
-          animated:YES
-          completion:nil];
-     } saveDataToCameraRoll:NO];
+        SLComposeViewController *shareconntroller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+        SLComposeViewControllerCompletionHandler completionHandler = ^(SLComposeViewControllerResult result) {
+            
+            [shareconntroller dismissViewControllerAnimated:YES
+                                                 completion:^{
+                                                     [weakSelf cancelPressed];
+                                                 }];
+        };
+        NSString *videoURLS = NSString.new;
+        for (MHImageURL *dataURL in images) {
+            if ([dataURL.image isKindOfClass:UIImage.class] && !dataURL.image.images) {
+                [shareconntroller addImage:dataURL.image];
+            }
+            else {
+                videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
+            }
+        }
+        [shareconntroller setInitialText:videoURLS];
+        [shareconntroller setCompletionHandler:completionHandler];
+        [self presentViewController:shareconntroller
+                           animated:YES
+                         completion:nil];
+    } saveDataToCameraRoll:NO];
 }
 - (void)twShareImages:(NSArray*)object {
     [self presentSLComposeForServiceType:SLServiceTypeTwitter];
@@ -667,89 +667,89 @@
 
 - (void)smsImages:(NSArray*)object {
     [self getAllImagesForSelectedRows:^(NSArray *images) {
-         MFMessageComposeViewController *picker = MFMessageComposeViewController.new;
-         picker.messageComposeDelegate = self;
-         NSString *videoURLS = NSString.new;
-         
-         for (MHImageURL *dataURL in images) {
-             if ([dataURL.image isKindOfClass:UIImage.class]) {
-                 UIImage *image = dataURL.image;
-                 if (image.images) {
-                     [picker addAttachmentData:[NSData dataWithContentsOfFile:[SDImageCache.sharedImageCache defaultCachePathForKey:dataURL.URL]]
-                      typeIdentifier:(__bridge NSString *)kUTTypeGIF
-                      filename:@"animated.gif"];
-                 }
-                 else {
-                     [picker addAttachmentData:UIImageJPEGRepresentation(dataURL.image, 1.0)
-                      typeIdentifier:@"public.image"
-                      filename:@"image.JPG"];
-                 }
-             }
-             else {
-                 videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
-             }
-         }
-         picker.body = videoURLS;
-         
-         [self presentViewController:picker
-          animated:YES
-          completion:nil];
-         
-     } saveDataToCameraRoll:NO];
+        MFMessageComposeViewController *picker = MFMessageComposeViewController.new;
+        picker.messageComposeDelegate = self;
+        NSString *videoURLS = NSString.new;
+        
+        for (MHImageURL *dataURL in images) {
+            if ([dataURL.image isKindOfClass:UIImage.class]) {
+                UIImage *image = dataURL.image;
+                if (image.images) {
+                    [picker addAttachmentData:[NSData dataWithContentsOfFile:[SDImageCache.sharedImageCache defaultCachePathForKey:dataURL.URL]]
+                               typeIdentifier:(__bridge NSString *)kUTTypeGIF
+                                     filename:@"animated.gif"];
+                }
+                else {
+                    [picker addAttachmentData:UIImageJPEGRepresentation(dataURL.image, 1.0)
+                               typeIdentifier:@"public.image"
+                                     filename:@"image.JPG"];
+                }
+            }
+            else {
+                videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
+            }
+        }
+        picker.body = videoURLS;
+        
+        [self presentViewController:picker
+                           animated:YES
+                         completion:nil];
+        
+    } saveDataToCameraRoll:NO];
 }
 
 - (void)mailImages:(NSArray*)object {
     [self getAllImagesForSelectedRows:^(NSArray *images) {
-         MFMailComposeViewController *picker = MFMailComposeViewController.new;
-         picker.mailComposeDelegate = self;
-         NSString *videoURLS = [NSString new];
-         
-         for (MHImageURL *dataURL in images) {
-             if ([dataURL.image isKindOfClass:UIImage.class]) {
-                 UIImage *image = dataURL.image;
-                 if (image.images) {
-                     [picker addAttachmentData:[NSData dataWithContentsOfFile:[[SDImageCache sharedImageCache] defaultCachePathForKey:dataURL.URL]]
-                      mimeType:@"image/gif"
-                      fileName:@"pic.gif"];
-                 }
-                 else {
-                     [picker addAttachmentData:UIImageJPEGRepresentation(dataURL.image, 1.0)
-                      mimeType:@"image/jpeg"
-                      fileName:@"image"];
-                 }
-                 
-             }
-             else {
-                 videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
-             }
-         }
-         [picker setMessageBody:videoURLS isHTML:NO];
-         
-         if ([MFMailComposeViewController canSendMail]) {
-             [self presentViewController:picker
-              animated:YES
-              completion:nil];
-         }
-     } saveDataToCameraRoll:NO];
+        MFMailComposeViewController *picker = MFMailComposeViewController.new;
+        picker.mailComposeDelegate = self;
+        NSString *videoURLS = [NSString new];
+        
+        for (MHImageURL *dataURL in images) {
+            if ([dataURL.image isKindOfClass:UIImage.class]) {
+                UIImage *image = dataURL.image;
+                if (image.images) {
+                    [picker addAttachmentData:[NSData dataWithContentsOfFile:[[SDImageCache sharedImageCache] defaultCachePathForKey:dataURL.URL]]
+                                     mimeType:@"image/gif"
+                                     fileName:@"pic.gif"];
+                }
+                else {
+                    [picker addAttachmentData:UIImageJPEGRepresentation(dataURL.image, 1.0)
+                                     mimeType:@"image/jpeg"
+                                     fileName:@"image"];
+                }
+                
+            }
+            else {
+                videoURLS = [videoURLS stringByAppendingString:[NSString stringWithFormat:@"%@ \n", dataURL.URL]];
+            }
+        }
+        [picker setMessageBody:videoURLS isHTML:NO];
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            [self presentViewController:picker
+                               animated:YES
+                             completion:nil];
+        }
+    } saveDataToCameraRoll:NO];
 }
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
-    didFinishWithResult:(MessageComposeResult)result {
+                 didFinishWithResult:(MessageComposeResult)result {
     
     __weak typeof(self) weakSelf = self;
     [controller dismissViewControllerAnimated:YES
-     completion:^{
-         [weakSelf cancelPressed];
-     }];
+                                   completion:^{
+                                       [weakSelf cancelPressed];
+                                   }];
 }
 - (void)mailComposeController:(MFMailComposeViewController *)controller
-    didFinishWithResult:(MFMailComposeResult)result
-    error:(NSError *)error {
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error {
     
     __weak typeof(self) weakSelf = self;
     [controller dismissViewControllerAnimated:YES
-     completion:^{
-         [weakSelf cancelPressed];
-     }];
+                                   completion:^{
+                                       [weakSelf cancelPressed];
+                                   }];
 }
 
 - (void)setSaveCounter:(NSInteger)saveCounter {
@@ -758,29 +758,29 @@
             UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
             if (self.downloadView) {
                 [self removeBlurBlurBackgorundToolbarFromSuperView:^(BOOL complition) {
-                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        self.finishedCallbackDownloadData(self.dataDownload);
-                                    });
-                 }];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        self.finishedCallbackDownloadData(self.dataDownload);
+                    });
+                }];
             }
             else {
                 self.finishedCallbackDownloadData(self.dataDownload);
             }
         }
         [self.downloadView attributedStringForDownloadLabelWithDownloadedDataNumber:@(saveCounter)
-         maxNumber:@(self.selectedRows.count)];
+                                                                          maxNumber:@(self.selectedRows.count)];
     });
     _saveCounter = saveCounter;
 }
 - (void)removeBlurBlurBackgorundToolbarFromSuperView:(void (^)(BOOL complition))SuccessBlock {
     [UIView animateWithDuration:0.3 animations:^{
-         self.downloadView.blurBackgroundToolbar.alpha = 0;
-     } completion:^(BOOL finished) {
-         [self.downloadView removeFromSuperview];
-         if (SuccessBlock) {
-             SuccessBlock(YES);
-         }
-     }];
+        self.downloadView.blurBackgroundToolbar.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.downloadView removeFromSuperview];
+        if (SuccessBlock) {
+            SuccessBlock(YES);
+        }
+    }];
 }
 - (void)addDataToDownloadArray:(id)data {
     [self.dataDownload addObject:data];
@@ -789,7 +789,7 @@
 
 
 - (void)getAllImagesForSelectedRows:(void (^)(NSArray *images))SuccessBlock
-    saveDataToCameraRoll:(BOOL)saveToCameraRoll {
+               saveDataToCameraRoll:(BOOL)saveToCameraRoll {
     
     BOOL containsVideo = NO;
     for (NSIndexPath *indexPath in self.selectedRows) {
@@ -818,8 +818,8 @@
         [self.navigationController.view addSubview:self.downloadView];
         
         [UIView animateWithDuration:0.3 animations:^{
-             self.downloadView.blurBackgroundToolbar.alpha = 1;
-         }];
+            self.downloadView.blurBackgroundToolbar.alpha = 1;
+        }];
     }
     UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
     
@@ -841,35 +841,35 @@
             }
             else {
                 [MHGallerySharedManager.sharedManager getURLForMediaPlayer:item.URLString successBlock:^(NSURL *URL, NSError *error) {
-                     NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration];
-                     
-                     [self.sessions addObject:session];
-                     [[session downloadTaskWithURL:URL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                           if (error) {
-                               weakSelf.saveCounter++;
-                               return;
-                           }
-                           NSURL *documentsURL = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-                           NSURL *tempURL = [documentsURL URLByAppendingPathComponent:@"storeForShare.mp4"];
-                           
-                           NSError *moveItemError = nil;
-                           [NSFileManager.defaultManager moveItemAtURL:location toURL:tempURL error:&moveItemError];
-                           
-                           if (moveItemError) {
-                               weakSelf.saveCounter++;
-                               return;
-                           }
-                           ALAssetsLibrary* library = ALAssetsLibrary.new;
-                           [library writeVideoAtPathToSavedPhotosAlbum:tempURL
-                            completionBlock:^(NSURL *assetURL, NSError *error) {
-                                NSError *removeError = nil;
-                                [NSFileManager.defaultManager removeItemAtURL:tempURL error:&removeError];
-                                
-                                [weakSelf.sessions removeObject:session];
-                                weakSelf.saveCounter++;
-                            }];
-                       }] resume];
-                 }];
+                    NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration];
+                    
+                    [self.sessions addObject:session];
+                    [[session downloadTaskWithURL:URL completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                        if (error) {
+                            weakSelf.saveCounter++;
+                            return;
+                        }
+                        NSURL *documentsURL = [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+                        NSURL *tempURL = [documentsURL URLByAppendingPathComponent:@"storeForShare.mp4"];
+                        
+                        NSError *moveItemError = nil;
+                        [NSFileManager.defaultManager moveItemAtURL:location toURL:tempURL error:&moveItemError];
+                        
+                        if (moveItemError) {
+                            weakSelf.saveCounter++;
+                            return;
+                        }
+                        ALAssetsLibrary* library = ALAssetsLibrary.new;
+                        [library writeVideoAtPathToSavedPhotosAlbum:tempURL
+                                                    completionBlock:^(NSURL *assetURL, NSError *error) {
+                                                        NSError *removeError = nil;
+                                                        [NSFileManager.defaultManager removeItemAtURL:tempURL error:&removeError];
+                                                        
+                                                        [weakSelf.sessions removeObject:session];
+                                                        weakSelf.saveCounter++;
+                                                    }];
+                    }] resume];
+                }];
             }
             
         }
@@ -878,42 +878,42 @@
             
             if ([item.URLString rangeOfString:MHAssetLibrary].location != NSNotFound && item.URLString) {
                 [MHGallerySharedManager.sharedManager getImageFromAssetLibrary:item.URLString
-                 assetType:MHAssetImageTypeFull
-                 successBlock:^(UIImage *image, NSError *error) {
-                     MHImageURL *imageURL = [MHImageURL.alloc initWithURL:item.URLString
-                                             image:image];
-                     [weakSelf addDataToDownloadArray:imageURL];
-                 }];
+                                                                     assetType:MHAssetImageTypeFull
+                                                                  successBlock:^(UIImage *image, NSError *error) {
+                                                                      MHImageURL *imageURL = [MHImageURL.alloc initWithURL:item.URLString
+                                                                                                                     image:image];
+                                                                      [weakSelf addDataToDownloadArray:imageURL];
+                                                                  }];
             }
             else if (item.image) {
                 [self addDataToDownloadArray:item.image];
             }
             else {
                 [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:item.URLString]
-                 options:SDWebImageContinueInBackground
-                 progress:nil
-                 completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-                     MHImageURL *imageURLMH = [MHImageURL.alloc initWithURL:item.URLString
-                                               image:image];
-                     [weakSelf addDataToDownloadArray:imageURLMH];
-                 }];
+                                                          options:SDWebImageContinueInBackground
+                                                         progress:nil
+                                                        completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                                                            MHImageURL *imageURLMH = [MHImageURL.alloc initWithURL:item.URLString
+                                                                                                             image:image];
+                                                            [weakSelf addDataToDownloadArray:imageURLMH];
+                                                        }];
             }
         }
     }
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-    duration:(NSTimeInterval)duration {
+                                         duration:(NSTimeInterval)duration {
     
     [self.tableViewShare mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.bottom.mas_equalTo(self.view.mas_bottom).with.offset(toInterfaceOrientation == UIInterfaceOrientationPortrait ? 0 : 240);
-     }];
+        make.bottom.mas_equalTo(self.view.mas_bottom).with.offset(toInterfaceOrientation == UIInterfaceOrientationPortrait ? 0 : 240);
+    }];
     
     [self.tableViewShare layoutIfNeeded];
     
     if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                 target:self
-                                                 action:@selector(cancelPressed)];
+                                                                                            target:self
+                                                                                            action:@selector(cancelPressed)];
         self.navigationItem.rightBarButtonItem = nil;
     }
     else {
@@ -924,9 +924,9 @@
 
 - (UIBarButtonItem*)nextBarButtonItem {
     return [UIBarButtonItem.alloc initWithTitle:@"Next"
-            style:UIBarButtonItemStylePlain
-            target:self
-            action:@selector(showShareSheet)];
+                                          style:UIBarButtonItemStylePlain
+                                         target:self
+                                         action:@selector(showShareSheet)];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -936,8 +936,8 @@
     MHMediaPreviewCollectionViewCell *cell = (MHMediaPreviewCollectionViewCell*)visibleCells[numberToScrollTo];
     
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:cell.tag inSection:0]
-     atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-     animated:YES];
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:YES];
     
     if (self.isShowingShareViewInLandscapeMode) {
         self.showingShareViewInLandscapeMode = NO;
@@ -948,58 +948,58 @@
     self.showingShareViewInLandscapeMode = NO;
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                             target:self
-                                             action:@selector(cancelPressed)];
+                                                                                        target:self
+                                                                                        action:@selector(cancelPressed)];
     
     self.navigationItem.rightBarButtonItem = [self nextBarButtonItem];
     
     [UIView animateWithDuration:0.3 animations:^{
-         self.toolbar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
-         self.tableViewShare.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
-     }];
+        self.toolbar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
+        self.tableViewShare.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
+    }];
 }
 - (void)showShareSheet {
     self.showingShareViewInLandscapeMode = YES;
     self.navigationItem.rightBarButtonItem = nil;
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                             target:self
-                                             action:@selector(cancelShareSheet)];
+                                                                                        target:self
+                                                                                        action:@selector(cancelShareSheet)];
     
     self.toolbar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
     self.tableViewShare.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 240);
     
     [UIView animateWithDuration:0.3 animations:^{
-         self.toolbar.frame = CGRectMake(0, self.view.frame.size.height - 240, self.view.frame.size.width, 240);
-         self.tableViewShare.frame = CGRectMake(0, self.view.frame.size.height - 230, self.view.frame.size.width, 240);
-     }];
+        self.toolbar.frame = CGRectMake(0, self.view.frame.size.height - 240, self.view.frame.size.width, 240);
+        self.tableViewShare.frame = CGRectMake(0, self.view.frame.size.height - 230, self.view.frame.size.width, 240);
+    }];
     
 }
 - (void)saveImages:(NSArray*)object {
     [self getAllImagesForSelectedRows:^(NSArray *images) {
-         for (MHImageURL *dataURL in images) {
-             
-             if ([dataURL.image isKindOfClass:[UIImage class]]) {
-                 
-                 UIImage *imageToStore = dataURL.image;
-                 
-                 ALAssetsLibrary* library = ALAssetsLibrary.new;
-                 NSData *data;
-                 
-                 if (imageToStore.images) {
-                     data = [NSData dataWithContentsOfFile:[[SDImageCache sharedImageCache] defaultCachePathForKey:dataURL.URL]];
-                 }
-                 else {
-                     data = UIImageJPEGRepresentation(imageToStore, 1.0);
-                 }
-                 
-                 [library writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
-                      NSLog(@"%@", error);
-                  }];
-             }
-         }
-         [self cancelPressed];
-     } saveDataToCameraRoll:YES];
+        for (MHImageURL *dataURL in images) {
+            
+            if ([dataURL.image isKindOfClass:[UIImage class]]) {
+                
+                UIImage *imageToStore = dataURL.image;
+                
+                ALAssetsLibrary* library = ALAssetsLibrary.new;
+                NSData *data;
+                
+                if (imageToStore.images) {
+                    data = [NSData dataWithContentsOfFile:[[SDImageCache sharedImageCache] defaultCachePathForKey:dataURL.URL]];
+                }
+                else {
+                    data = UIImageJPEGRepresentation(imageToStore, 1.0);
+                }
+                
+                [library writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+                    NSLog(@"%@", error);
+                }];
+            }
+        }
+        [self cancelPressed];
+    } saveDataToCameraRoll:YES];
 }
 
 
@@ -1018,12 +1018,12 @@
         
         [self.collectionView.delegate scrollViewDidScroll:self.collectionView];
         [UIView animateWithDuration:0.35 animations:^{
-             [self.collectionView scrollToItemAtIndexPath:indexPath
-              atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-              animated:NO];
-         } completion:^(BOOL finished) {
-             [self.collectionView.delegate scrollViewDidScroll:self.collectionView];
-         }];
+            [self.collectionView scrollToItemAtIndexPath:indexPath
+                                        atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                                animated:NO];
+        } completion:^(BOOL finished) {
+            [self.collectionView.delegate scrollViewDidScroll:self.collectionView];
+        }];
         
         [self updateCollectionView];
         [self updateTitle];
@@ -1034,9 +1034,9 @@
         SEL selector = NSSelectorFromString(item.selectorName);
         
         SuppressPerformSelectorLeakWarning(
-            [item.onViewController performSelector:selector
-             withObject:self.selectedRows];
-            );
+                                           [item.onViewController performSelector:selector
+                                                                       withObject:self.selectedRows];
+                                           );
         
         
     }

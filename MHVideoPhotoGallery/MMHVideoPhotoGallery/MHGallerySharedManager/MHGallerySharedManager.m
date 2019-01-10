@@ -22,36 +22,36 @@
 }
 
 - (void)getImageFromAssetLibrary:(NSString*)urlString
-    assetType:(MHAssetImageType)type
-    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
+                       assetType:(MHAssetImageType)type
+                    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         ALAssetsLibrary *assetslibrary = ALAssetsLibrary.new;
         [assetslibrary assetForURL:[NSURL URLWithString:urlString]
-         resultBlock:^(ALAsset *asset) {
-             
-             if (type == MHAssetImageTypeThumb) {
-                 dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                       resultBlock:^(ALAsset *asset) {
+                           
+                           if (type == MHAssetImageTypeThumb) {
+                               dispatch_sync(dispatch_get_main_queue(), ^(void) {
                                    UIImage *image = [UIImage.alloc initWithCGImage:asset.thumbnail];
                                    succeedBlock(image, nil);
                                });
-             }
-             else {
-                 ALAssetRepresentation *rep = asset.defaultRepresentation;
-                 CGImageRef iref = rep.fullScreenImage;
-                 if (iref) {
-                     dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                           }
+                           else {
+                               ALAssetRepresentation *rep = asset.defaultRepresentation;
+                               CGImageRef iref = rep.fullScreenImage;
+                               if (iref) {
+                                   dispatch_sync(dispatch_get_main_queue(), ^(void) {
                                        UIImage *image = [UIImage.alloc initWithCGImage:iref];
                                        succeedBlock(image, nil);
                                    });
-                 }
-             }
-         }
-         failureBlock:^(NSError *error) {
-             dispatch_sync(dispatch_get_main_queue(), ^(void) {
-                               succeedBlock(nil, error);
-                           });
-         }];
+                               }
+                           }
+                       }
+                      failureBlock:^(NSError *error) {
+                          dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                              succeedBlock(nil, error);
+                          });
+                      }];
     });
 }
 
@@ -64,7 +64,7 @@
 }
 
 - (void)createThumbURL:(NSString*)urlString
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
+          successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
     
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:urlString];
     NSMutableDictionary *dict = [NSMutableDictionary.alloc initWithDictionary:[NSUserDefaults.standardUserDefaults objectForKey:MHGalleryDurationData]];
@@ -111,10 +111,10 @@
                     UIImage *image = [UIImage imageWithCGImage:im];
                     if (image != nil) {
                         [SDImageCache.sharedImageCache storeImage:image
-                         forKey:urlString
-                         completion:^{
-                             succeedBlock(image, videoDurationTimeInSeconds, nil);
-                         }];
+                                                           forKey:urlString
+                                                       completion:^{
+                                                           succeedBlock(image, videoDurationTimeInSeconds, nil);
+                                                       }];
                         
                     }
                 }
@@ -129,7 +129,7 @@
                 generator.maximumSize = CGSizeMake(220, 220);
             }
             [generator generateCGImagesAsynchronouslyForTimes:@[[NSValue valueWithCMTime:thumbTime]]
-             completionHandler:handler];
+                                            completionHandler:handler];
         });
     }
 }
@@ -147,27 +147,27 @@
 }
 
 - (void)getYoutubeURLforMediaPlayer:(NSString*)URL
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
+                       successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
     
     NSString *videoID = [[URL componentsSeparatedByString:@"?v="] lastObject];
     NSURL *videoInfoURL = [NSURL URLWithString:[NSString stringWithFormat:MHYoutubePlayBaseURL, videoID ? : @"", [self languageIdentifier]]];
     NSMutableURLRequest *httpRequest = [[NSMutableURLRequest alloc] initWithURL:videoInfoURL
-                                        cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                        timeoutInterval:10];
+                                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                                timeoutInterval:10];
     [httpRequest setValue:[self languageIdentifier] forHTTPHeaderField:@"Accept-Language"];
     [NSURLConnection sendAsynchronousRequest:httpRequest
-     queue:NSOperationQueue.new
-     completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            NSURL *playURL = [self getYoutubeURLWithData:data];
-                            if (playURL) {
-                                succeedBlock(playURL, nil);
-                            }
-                            else {
-                                succeedBlock(nil, nil);
-                            }
-                        });
-     }];
+                                       queue:NSOperationQueue.new
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                   NSURL *playURL = [self getYoutubeURLWithData:data];
+                                   if (playURL) {
+                                       succeedBlock(playURL, nil);
+                                   }
+                                   else {
+                                       succeedBlock(nil, nil);
+                                   }
+                               });
+                           }];
 }
 
 - (NSURL *)getYoutubeURLWithData:(NSData *)data {
@@ -212,17 +212,17 @@
 }
 
 - (void)getURLForMediaPlayer:(NSString*)URLString
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
+                successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
     
     if ([URLString rangeOfString:@"vimeo.com"].location != NSNotFound) {
         [self getVimeoURLforMediaPlayer:URLString successBlock:^(NSURL *URL, NSError *error) {
-             succeedBlock(URL, error);
-         }];
+            succeedBlock(URL, error);
+        }];
     }
     else if ([URLString rangeOfString:@"youtube.com"].location != NSNotFound) {
         [self getYoutubeURLforMediaPlayer:URLString successBlock:^(NSURL *URL, NSError *error) {
-             succeedBlock(URL, error);
-         }];
+            succeedBlock(URL, error);
+        }];
     }
     else {
         succeedBlock([NSURL URLWithString:URLString], nil);
@@ -233,57 +233,57 @@
 
 
 - (void)getVimeoURLforMediaPlayer:(NSString*)URL
-    successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
+                     successBlock:(void (^)(NSURL *URL, NSError *error))succeedBlock {
     
     NSString *videoID = [[URL componentsSeparatedByString:@"/"] lastObject];
     NSURL *vimdeoURL = [NSURL URLWithString:[NSString stringWithFormat:MHVimeoVideoBaseURL, videoID]];
     
     NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:vimdeoURL
-                                        cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                        timeoutInterval:10];
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:10];
     
     [httpRequest setValue:@"application/json"
-     forHTTPHeaderField:@"Content-Type"];
+       forHTTPHeaderField:@"Content-Type"];
     
     [NSURLConnection sendAsynchronousRequest:httpRequest
-     queue:NSOperationQueue.new
-     completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (!connectionError) {
-             NSError *error;
-             
-             NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data
-                                       options:NSJSONReadingAllowFragments
-                                       error:&error];
-             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                NSDictionary *filesInfo = [jsonData valueForKeyPath:@"request.files.h264"];
-                                if (!filesInfo) {
-                                    succeedBlock(nil, nil);
-                                }
-                                NSString *quality = NSString.new;
-                                if (self.vimeoVideoQuality == MHVimeoVideoQualityHD) {
-                                    quality = @"hd";
-                                    if (!filesInfo[quality]) {
-                                        quality = @"sd";
-                                    }
-                                }
-                                else if (self.vimeoVideoQuality == MHVimeoVideoQualityMobile) {
-                                    quality = @"mobile";
-                                }
-                                else if (self.vimeoVideoQuality == MHVimeoVideoQualitySD) {
-                                    quality = @"sd";
-                                }
-                                NSDictionary *videoInfo = filesInfo[quality];
-                                if (!videoInfo[@"url"]) {
-                                    succeedBlock(nil, nil);
-                                }
-                                succeedBlock([NSURL URLWithString:videoInfo[@"url"]], nil);
-                            });
-         }
-         else {
-             succeedBlock(nil, connectionError);
-         }
-         
-     }];
+                                       queue:NSOperationQueue.new
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (!connectionError) {
+                                   NSError *error;
+                                   
+                                   NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                            options:NSJSONReadingAllowFragments
+                                                                                              error:&error];
+                                   dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                       NSDictionary *filesInfo = [jsonData valueForKeyPath:@"request.files.h264"];
+                                       if (!filesInfo) {
+                                           succeedBlock(nil, nil);
+                                       }
+                                       NSString *quality = NSString.new;
+                                       if (self.vimeoVideoQuality == MHVimeoVideoQualityHD) {
+                                           quality = @"hd";
+                                           if (!filesInfo[quality]) {
+                                               quality = @"sd";
+                                           }
+                                       }
+                                       else if (self.vimeoVideoQuality == MHVimeoVideoQualityMobile) {
+                                           quality = @"mobile";
+                                       }
+                                       else if (self.vimeoVideoQuality == MHVimeoVideoQualitySD) {
+                                           quality = @"sd";
+                                       }
+                                       NSDictionary *videoInfo = filesInfo[quality];
+                                       if (!videoInfo[@"url"]) {
+                                           succeedBlock(nil, nil);
+                                       }
+                                       succeedBlock([NSURL URLWithString:videoInfo[@"url"]], nil);
+                                   });
+                               }
+                               else {
+                                   succeedBlock(nil, connectionError);
+                               }
+                               
+                           }];
 }
 
 - (void)setObjectToUserDefaults:(NSMutableDictionary*)dict {
@@ -296,7 +296,7 @@
 
 
 - (void)getYoutubeThumbImage:(NSString*)URL
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
+                successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:URL];
     if (image) {
         NSMutableDictionary *dict = [self durationDict];
@@ -306,56 +306,56 @@
         NSString *videoID = [[URL componentsSeparatedByString:@"?v="] lastObject];
         NSString *infoURL = [NSString stringWithFormat:MHYoutubeInfoBaseURL, videoID];
         NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:infoURL]
-                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                            timeoutInterval:10];
+                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                               timeoutInterval:10];
         [NSURLConnection sendAsynchronousRequest:httpRequest
-         queue:NSOperationQueue.new
-         completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-             if (!connectionError) {
-                 NSError *error;
-                 NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data
-                                           options:NSJSONReadingAllowFragments
-                                           error:&error];
-                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                    if (jsonData.count) {
-                                        NSMutableDictionary *dictToSave = [self durationDict];
-                                        dictToSave[URL] = @([jsonData[@"data"][@"duration"] integerValue]);
-                                        [self setObjectToUserDefaults:dictToSave];
-                                        NSString *thumbURL = NSString.new;
-                                        if (self.youtubeThumbQuality == MHYoutubeThumbQualityHQ) {
-                                            thumbURL = jsonData[@"data"][@"thumbnail"][@"hqDefault"];
-                                        }
-                                        else if (self.youtubeThumbQuality == MHYoutubeThumbQualitySQ) {
-                                            thumbURL = jsonData[@"data"][@"thumbnail"][@"sqDefault"];
-                                        }
-                                        
-                                        [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:thumbURL]
-                                         options:SDWebImageContinueInBackground
-                                         progress:nil
-                                         completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-                                             [SDImageCache.sharedImageCache removeImageForKey:thumbURL withCompletion:nil];
-                                             
-                                             [SDImageCache.sharedImageCache storeImage:image
-                                              forKey:URL
-                                              completion: ^{
-                                                  succeedBlock(image, [jsonData[@"data"][@"duration"] integerValue], nil);
-                                              }
-                                             ];
-                                         }];
-                                    }
-                                });
-             }
-             else {
-                 succeedBlock(nil, 0, connectionError);
-             }
-         }];
+                                           queue:NSOperationQueue.new
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   if (!connectionError) {
+                                       NSError *error;
+                                       NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                options:NSJSONReadingAllowFragments
+                                                                                                  error:&error];
+                                       dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                           if (jsonData.count) {
+                                               NSMutableDictionary *dictToSave = [self durationDict];
+                                               dictToSave[URL] = @([jsonData[@"data"][@"duration"] integerValue]);
+                                               [self setObjectToUserDefaults:dictToSave];
+                                               NSString *thumbURL = NSString.new;
+                                               if (self.youtubeThumbQuality == MHYoutubeThumbQualityHQ) {
+                                                   thumbURL = jsonData[@"data"][@"thumbnail"][@"hqDefault"];
+                                               }
+                                               else if (self.youtubeThumbQuality == MHYoutubeThumbQualitySQ) {
+                                                   thumbURL = jsonData[@"data"][@"thumbnail"][@"sqDefault"];
+                                               }
+                                               
+                                               [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:thumbURL]
+                                                                                         options:SDWebImageContinueInBackground
+                                                                                        progress:nil
+                                                                                       completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                                                                                           [SDImageCache.sharedImageCache removeImageForKey:thumbURL withCompletion:nil];
+                                                                                           
+                                                                                           [SDImageCache.sharedImageCache storeImage:image
+                                                                                                                              forKey:URL
+                                                                                                                          completion: ^{
+                                                                                                                              succeedBlock(image, [jsonData[@"data"][@"duration"] integerValue], nil);
+                                                                                                                          }
+                                                                                            ];
+                                                                                       }];
+                                           }
+                                       });
+                                   }
+                                   else {
+                                       succeedBlock(nil, 0, connectionError);
+                                   }
+                               }];
     }
     
 }
 
 
 - (void)getVimdeoThumbImage:(NSString*)URL
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
+               successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
     
     NSString *videoID = [[URL componentsSeparatedByString:@"/"] lastObject];
     NSString *vimdeoURLString = [NSString stringWithFormat:MHVimeoThumbBaseURL, videoID];
@@ -367,130 +367,130 @@
     }
     else {
         NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:vimdeoURL
-                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                            timeoutInterval:10];
+                                                                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                               timeoutInterval:10];
         [NSURLConnection sendAsynchronousRequest:httpRequest
-         queue:NSOperationQueue.new
-         completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-             if (connectionError) {
-                 succeedBlock(nil, 0, connectionError);
-             }
-             else {
-                 NSError *error;
-                 NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:data
-                                      options:NSJSONReadingAllowFragments
-                                      error:&error];
-                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                    if (jsonData.count) {
-                                        
-                                        NSString *quality = NSString.new;
-                                        if (self.vimeoThumbQuality == MHVimeoThumbQualityLarge) {
-                                            quality = @"thumbnail_large";
-                                        }
-                                        else if (self.vimeoThumbQuality == MHVimeoThumbQualityMedium) {
-                                            quality = @"thumbnail_medium";
-                                        }
-                                        else if (self.vimeoThumbQuality == MHVimeoThumbQualitySmall) {
-                                            quality = @"thumbnail_small";
-                                        }
-                                        if ([jsonData firstObject][quality]) {
-                                            NSMutableDictionary *dictToSave = [self durationDict];
-                                            dictToSave[vimdeoURLString] = @([jsonData[0][@"duration"] integerValue]);
-                                            [self setObjectToUserDefaults:dictToSave];
-                                            [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:jsonData[0][quality]]
-                                             options:SDWebImageContinueInBackground
-                                             progress:nil
-                                             completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-                                                 [SDImageCache.sharedImageCache removeImageForKey:jsonData[0][quality] withCompletion:nil];
-                                                 
-                                                 [SDImageCache.sharedImageCache storeImage:image
-                                                  forKey:vimdeoURLString
-                                                  completion:^{
-                                                      succeedBlock(image, [jsonData[0][@"duration"] integerValue], nil);
-                                                  }];
-                                             }];
-                                        }
-                                        else {
-                                            succeedBlock(nil, 0, nil);
-                                        }
-                                        
-                                    }
-                                    else {
-                                        succeedBlock(nil, 0, nil);
-                                    }
-                                });
-             }
-             
-             
-         }];
+                                           queue:NSOperationQueue.new
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   if (connectionError) {
+                                       succeedBlock(nil, 0, connectionError);
+                                   }
+                                   else {
+                                       NSError *error;
+                                       NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                           options:NSJSONReadingAllowFragments
+                                                                                             error:&error];
+                                       dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                           if (jsonData.count) {
+                                               
+                                               NSString *quality = NSString.new;
+                                               if (self.vimeoThumbQuality == MHVimeoThumbQualityLarge) {
+                                                   quality = @"thumbnail_large";
+                                               }
+                                               else if (self.vimeoThumbQuality == MHVimeoThumbQualityMedium) {
+                                                   quality = @"thumbnail_medium";
+                                               }
+                                               else if (self.vimeoThumbQuality == MHVimeoThumbQualitySmall) {
+                                                   quality = @"thumbnail_small";
+                                               }
+                                               if ([jsonData firstObject][quality]) {
+                                                   NSMutableDictionary *dictToSave = [self durationDict];
+                                                   dictToSave[vimdeoURLString] = @([jsonData[0][@"duration"] integerValue]);
+                                                   [self setObjectToUserDefaults:dictToSave];
+                                                   [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:jsonData[0][quality]]
+                                                                                             options:SDWebImageContinueInBackground
+                                                                                            progress:nil
+                                                                                           completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                                                                                               [SDImageCache.sharedImageCache removeImageForKey:jsonData[0][quality] withCompletion:nil];
+                                                                                               
+                                                                                               [SDImageCache.sharedImageCache storeImage:image
+                                                                                                                                  forKey:vimdeoURLString
+                                                                                                                              completion:^{
+                                                                                                                                  succeedBlock(image, [jsonData[0][@"duration"] integerValue], nil);
+                                                                                                                              }];
+                                                                                           }];
+                                               }
+                                               else {
+                                                   succeedBlock(nil, 0, nil);
+                                               }
+                                               
+                                           }
+                                           else {
+                                               succeedBlock(nil, 0, nil);
+                                           }
+                                       });
+                                   }
+                                   
+                                   
+                               }];
     }
     
 }
 
 - (void)startDownloadingThumbImage:(NSString*)urlString
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
+                      successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
     if ([urlString rangeOfString:@"vimeo.com"].location != NSNotFound) {
         [self getVimdeoThumbImage:urlString
-         successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
-             succeedBlock(image, videoDuration, error);
-         }];
+                     successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
+                         succeedBlock(image, videoDuration, error);
+                     }];
     }
     else if ([urlString rangeOfString:@"youtube.com"].location != NSNotFound) {
         [self getYoutubeThumbImage:urlString
-         successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
-             succeedBlock(image, videoDuration, error);
-         }];
+                      successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
+                          succeedBlock(image, videoDuration, error);
+                      }];
     }
     else {
         [self createThumbURL:urlString
-         successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
-             succeedBlock(image, videoDuration, error);
-         }];
+                successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
+                    succeedBlock(image, videoDuration, error);
+                }];
     }
 }
 
 
 - (void)getMHGalleryObjectsForYoutubeChannel:(NSString*)channelName
-    withTitle:(BOOL)withTitle
-    successBlock:(void (^)(NSArray *MHGalleryObjects, NSError *error))succeedBlock {
+                                   withTitle:(BOOL)withTitle
+                                successBlock:(void (^)(NSArray *MHGalleryObjects, NSError *error))succeedBlock {
     NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:MHYoutubeChannel, channelName]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5];
     [NSURLConnection sendAsynchronousRequest:httpRequest queue:NSOperationQueue.new completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if (connectionError) {
-             succeedBlock(nil, connectionError);
-             
-         }
-         else {
-             dispatch_sync(dispatch_get_main_queue(), ^{
-                               
-                               NSError *error = nil;
-                               NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-                                                     options:NSJSONReadingMutableContainers
-                                                     error:&error];
-                               if (!error) {
-                                   NSMutableArray *galleryData = NSMutableArray.new;
-                                   for (NSDictionary *dictionary in dict[@"feed"][@"entry"]) {
-                                       NSString *string = [dictionary[@"link"] firstObject][@"href"];
-                                       
-                                       string = [string stringByReplacingOccurrencesOfString:@"&feature=youtube_gdata" withString:@""];
-                                       MHGalleryItem *item = [MHGalleryItem itemWithURL:string galleryType:MHGalleryTypeVideo];
-                                       if (withTitle) {
-                                           item.descriptionString = dictionary[@"title"][@"$t"];
-                                       }
-                                       [galleryData addObject:item];
-                                   }
-                                   succeedBlock(galleryData, nil);
-                               }
-                               else {
-                                   succeedBlock(nil, error);
-                               }
-                           });
-         }
-     }];
+        if (connectionError) {
+            succeedBlock(nil, connectionError);
+            
+        }
+        else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                NSError *error = nil;
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&error];
+                if (!error) {
+                    NSMutableArray *galleryData = NSMutableArray.new;
+                    for (NSDictionary *dictionary in dict[@"feed"][@"entry"]) {
+                        NSString *string = [dictionary[@"link"] firstObject][@"href"];
+                        
+                        string = [string stringByReplacingOccurrencesOfString:@"&feature=youtube_gdata" withString:@""];
+                        MHGalleryItem *item = [MHGalleryItem itemWithURL:string galleryType:MHGalleryTypeVideo];
+                        if (withTitle) {
+                            item.descriptionString = dictionary[@"title"][@"$t"];
+                        }
+                        [galleryData addObject:item];
+                    }
+                    succeedBlock(galleryData, nil);
+                }
+                else {
+                    succeedBlock(nil, error);
+                }
+            });
+        }
+    }];
 }
 
 
 + (NSString*)stringForMinutesAndSeconds:(NSInteger)seconds
-    addMinus:(BOOL)addMinus {
+                               addMinus:(BOOL)addMinus {
     
     NSNumber *minutesNumber = @(seconds / 60);
     NSNumber *secondsNumber = @(seconds % 60);

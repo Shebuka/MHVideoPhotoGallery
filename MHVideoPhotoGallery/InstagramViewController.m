@@ -34,41 +34,41 @@
     __weak typeof(self) weakSelf = self;
     
     [NSURLConnection sendAsynchronousRequest:request
-     queue:NSOperationQueue.new
-     completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         
-         
-         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-                               options:NSJSONReadingAllowFragments
-                               error:nil];
-         
-         NSMutableArray *galleryItems = NSMutableArray.new;
-         for (NSDictionary *dictionary in dict[@"data"]) {
-             MHGalleryItem *item;
-             if (dictionary[@"videos"]) {
-                 item = [MHGalleryItem itemWithURL:dictionary[@"videos"][@"standard_resolution"][@"url"]
-                         galleryType:MHGalleryTypeVideo];
-                 
-             }
-             else {
-                 item = [MHGalleryItem itemWithURL:dictionary[@"images"][@"standard_resolution"][@"url"]
-                         galleryType:MHGalleryTypeImage];
-                 
-             }
-             
-             if (![dictionary[@"caption"] isKindOfClass:NSNull.class]) {
-                 item.descriptionString = dictionary[@"caption"][@"text"];
-                 
-             }
-             
-             
-             [galleryItems addObject:item];
-         }
-         dispatch_async(dispatch_get_main_queue(), ^{
-                            weakSelf.galleryItems = galleryItems;
-                            [weakSelf.collectionView reloadData];
-                        });
-     }];
+                                       queue:NSOperationQueue.new
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               
+                               
+                               NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
+                                                                                    options:NSJSONReadingAllowFragments
+                                                                                      error:nil];
+                               
+                               NSMutableArray *galleryItems = NSMutableArray.new;
+                               for (NSDictionary *dictionary in dict[@"data"]) {
+                                   MHGalleryItem *item;
+                                   if (dictionary[@"videos"]) {
+                                       item = [MHGalleryItem itemWithURL:dictionary[@"videos"][@"standard_resolution"][@"url"]
+                                                             galleryType:MHGalleryTypeVideo];
+                                       
+                                   }
+                                   else {
+                                       item = [MHGalleryItem itemWithURL:dictionary[@"images"][@"standard_resolution"][@"url"]
+                                                             galleryType:MHGalleryTypeImage];
+                                       
+                                   }
+                                   
+                                   if (![dictionary[@"caption"] isKindOfClass:NSNull.class]) {
+                                       item.descriptionString = dictionary[@"caption"][@"text"];
+                                       
+                                   }
+                                   
+                                   
+                                   [galleryItems addObject:item];
+                               }
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   weakSelf.galleryItems = galleryItems;
+                                   [weakSelf.collectionView reloadData];
+                               });
+                           }];
     
     self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 50, 0);
 }
@@ -97,7 +97,7 @@
         CGRect cellFrame = [[weakSelf.collectionView collectionViewLayout] layoutAttributesForItemAtIndexPath:newIndexPath].frame;
         
         [weakSelf.collectionView scrollRectToVisible:cellFrame
-         animated:NO];
+                                            animated:NO];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.collectionView reloadItemsAtIndexPaths:@[newIndexPath]];
@@ -105,16 +105,16 @@
             MHMediaPreviewCollectionViewCell *cell = (MHMediaPreviewCollectionViewCell*)[weakSelf.collectionView cellForItemAtIndexPath:newIndexPath];
             
             [blockGallery dismissViewControllerAnimated:YES dismissImageView:cell.thumbnail completion:^{
-                 
-                 [self setNeedsStatusBarAppearanceUpdate];
-                 
-                 MPMoviePlayerController *player = interactiveTransition.moviePlayer;
-                 
-                 player.controlStyle = MPMovieControlStyleEmbedded;
-                 player.view.frame = cell.bounds;
-                 player.scalingMode = MPMovieScalingModeAspectFill;
-                 [cell.contentView addSubview:player.view];
-             }];
+                
+                [self setNeedsStatusBarAppearanceUpdate];
+                
+                MPMoviePlayerController *player = interactiveTransition.moviePlayer;
+                
+                player.controlStyle = MPMovieControlStyleEmbedded;
+                player.view.frame = cell.bounds;
+                player.scalingMode = MPMovieScalingModeAspectFill;
+                [cell.contentView addSubview:player.view];
+            }];
         });
     };
     [self presentMHGalleryController:gallery animated:YES completion:nil];

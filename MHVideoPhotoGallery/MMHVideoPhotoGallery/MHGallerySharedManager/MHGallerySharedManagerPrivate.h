@@ -10,8 +10,7 @@
 
 @interface MHGallerySharedManager ()
 
-+ (NSString*)stringForMinutesAndSeconds:(NSInteger)seconds
-    addMinus:(BOOL)addMinus;
++ (NSString*)stringForMinutesAndSeconds:(NSInteger)seconds addMinus:(BOOL)addMinus;
 
 @end
 

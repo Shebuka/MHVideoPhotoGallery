@@ -37,12 +37,12 @@
     self.navigationItem.rightBarButtonItem = doneBarButton;
     
     self.collectionView = [UICollectionView.alloc initWithFrame:self.view.bounds
-                           collectionViewLayout:[self layoutForOrientation:UIApplication.sharedApplication.statusBarOrientation]];
+                                           collectionViewLayout:[self layoutForOrientation:UIApplication.sharedApplication.statusBarOrientation]];
     
     self.collectionView.backgroundColor = [self.galleryViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeOverView];
     
     [self.collectionView registerClass:MHMediaPreviewCollectionViewCell.class
-     forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
+            forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
     
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
@@ -55,7 +55,7 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
     
     UIMenuItem *saveItem = [UIMenuItem.alloc initWithTitle:MHGalleryLocalizedString(@"overview.menue.item.save")
-                            action:@selector(saveImage:)];
+                                                    action:@selector(saveImage:)];
 #pragma clang diagnostic pop
     
     UIMenuController.sharedMenuController.menuItems = @[saveItem];
@@ -67,7 +67,7 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
     [UIApplication.sharedApplication setStatusBarStyle:self.galleryViewController.preferredStatusBarStyleMH
-     animated:YES];
+                                              animated:YES];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -108,7 +108,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = (MHMediaPreviewCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class) forIndexPath:indexPath];
     [self makeMHGalleryOverViewCell:(MHMediaPreviewCollectionViewCell*)cell
-     atIndexPath:indexPath];
+                        atIndexPath:indexPath];
     
     return cell;
 }
@@ -127,9 +127,9 @@
     
     cell.saveImage = ^(BOOL shouldSave) {
         [weakSelf getImageForItem:item
-         finishCallback:^(UIImage *image) {
-             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-         }];
+                   finishCallback:^(UIImage *image) {
+                       UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+                   }];
     };
     
     cell.videoDurationLength.text = @"";
@@ -139,12 +139,12 @@
     cell.thumbnail.userInteractionEnabled = YES;
     
     MHIndexPinchGestureRecognizer *pinch = [MHIndexPinchGestureRecognizer.alloc initWithTarget:self
-                                            action:@selector(userDidPinch:)];
+                                                                                        action:@selector(userDidPinch:)];
     pinch.indexPath = indexPath;
     [cell.thumbnail addGestureRecognizer:pinch];
     
     UIRotationGestureRecognizer *rotate = [UIRotationGestureRecognizer.alloc initWithTarget:self
-                                           action:@selector(userDidRoate:)];
+                                                                                     action:@selector(userDidRoate:)];
     rotate.delegate = self;
     [cell.thumbnail addGestureRecognizer:rotate];
     
@@ -176,7 +176,7 @@
             detail.pageIndex = recognizer.indexPath.row;
             self.startScale = recognizer.scale / 8;
             [self.navigationController pushViewController:detail
-             animated:YES];
+                                                 animated:YES];
         }
         else {
             recognizer.cancelsTouchesInView = YES;
@@ -209,7 +209,7 @@
 
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-    interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+                         interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     if ([animationController isKindOfClass:MHTransitionShowDetail.class]) {
         return self.interactivePushTransition;
     }
@@ -219,9 +219,9 @@
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-    animationControllerForOperation:(UINavigationControllerOperation)operation
-    fromViewController:(UIViewController *)fromVC
-    toViewController:(UIViewController *)toVC {
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC {
     
     if (fromVC == self && [toVC isKindOfClass:MHGalleryImageViewerViewController.class]) {
         return MHTransitionShowDetail.new;
@@ -264,11 +264,11 @@
     if ([item.URLString rangeOfString:MHAssetLibrary].location != NSNotFound && item.URLString) {
         
         [MHGallerySharedManager.sharedManager getImageFromAssetLibrary:item.URLString
-         assetType:MHAssetImageTypeFull
-         successBlock:^(UIImage *image, NSError *error) {
-             cell.thumbnail.image = image;
-             [weakSelf pushToImageViewerForIndexPath:indexPath];
-         }];
+                                                             assetType:MHAssetImageTypeFull
+                                                          successBlock:^(UIImage *image, NSError *error) {
+                                                              cell.thumbnail.image = image;
+                                                              [weakSelf pushToImageViewerForIndexPath:indexPath];
+                                                          }];
     }
     else {
         [self pushToImageViewerForIndexPath:indexPath];
@@ -290,13 +290,13 @@
 }
 
 - (void)getImageForItem:(MHGalleryItem*)item
-    finishCallback:(void (^)(UIImage *image))FinishBlock {
+         finishCallback:(void (^)(UIImage *image))FinishBlock {
     [SDWebImageManager.sharedManager loadImageWithURL:[NSURL URLWithString:item.URLString]
-     options:SDWebImageContinueInBackground
-     progress:nil
-     completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-         FinishBlock(image);
-     }];
+                                              options:SDWebImageContinueInBackground
+                                             progress:nil
+                                            completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                                                FinishBlock(image);
+                                            }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -311,19 +311,19 @@
         pasteBoard.persistent = YES;
         MHGalleryItem *item = [self itemForIndex:indexPath.row];
         [self getImageForItem:item finishCallback:^(UIImage *image) {
-             if (image) {
-                 UIPasteboard *pasteboard = UIPasteboard.generalPasteboard;
-                 if (image.images) {
-                     NSData *data = [NSData dataWithContentsOfFile:[SDImageCache.sharedImageCache defaultCachePathForKey:item.URLString]];
-                     [pasteboard setData:data forPasteboardType:(__bridge NSString *)kUTTypeGIF];
-                 }
-                 else {
-                     NSData *data = UIImagePNGRepresentation(image);
-                     [pasteboard setData:data forPasteboardType:(__bridge NSString *)kUTTypeImage];
-                     
-                 }
-             }
-         }];
+            if (image) {
+                UIPasteboard *pasteboard = UIPasteboard.generalPasteboard;
+                if (image.images) {
+                    NSData *data = [NSData dataWithContentsOfFile:[SDImageCache.sharedImageCache defaultCachePathForKey:item.URLString]];
+                    [pasteboard setData:data forPasteboardType:(__bridge NSString *)kUTTypeGIF];
+                }
+                else {
+                    NSData *data = UIImagePNGRepresentation(image);
+                    [pasteboard setData:data forPasteboardType:(__bridge NSString *)kUTTypeImage];
+                    
+                }
+            }
+        }];
     }
 }
 

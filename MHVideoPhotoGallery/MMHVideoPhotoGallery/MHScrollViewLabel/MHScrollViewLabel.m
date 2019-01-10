@@ -21,12 +21,12 @@
         self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         
         [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.top.mas_equalTo(self.mas_top);
-             make.left.mas_equalTo(self.mas_left);
-             make.right.mas_equalTo(self.mas_right);
-             make.bottom.mas_equalTo(self.mas_bottom);
-             make.width.mas_equalTo(self);
-         }];
+            make.top.mas_equalTo(self.mas_top);
+            make.left.mas_equalTo(self.mas_left);
+            make.right.mas_equalTo(self.mas_right);
+            make.bottom.mas_equalTo(self.mas_bottom);
+            make.width.mas_equalTo(self);
+        }];
     }
     return self;
 }
@@ -45,8 +45,8 @@
         return;
     }
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.height.mas_equalTo(height < 200 ? height : 200);
-     }];
+        make.height.mas_equalTo(height < 200 ? height : 200);
+    }];
 }
 
 @end

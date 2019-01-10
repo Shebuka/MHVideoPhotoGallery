@@ -13,30 +13,30 @@
 @implementation UIImageView (MHGallery)
 
 - (void)setThumbWithURL:(NSString*)URL
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
+           successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock {
     
     __weak typeof(self) weakSelf = self;
     
     [MHGallerySharedManager.sharedManager startDownloadingThumbImage:URL
-     successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
-         
-         if (!weakSelf) return;
-         dispatch_main_async_safe(^{
-                                      if (!weakSelf) return;
-                                      if (image) {
-                                          weakSelf.image = image;
-                                          [weakSelf setNeedsLayout];
-                                      }
-                                      if (succeedBlock) {
-                                          succeedBlock(image, videoDuration, error);
-                                      }
-                                  });
-     }];
+                                                        successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
+                                                            
+                                                            if (!weakSelf) return;
+                                                            dispatch_main_async_safe(^{
+                                                                if (!weakSelf) return;
+                                                                if (image) {
+                                                                    weakSelf.image = image;
+                                                                    [weakSelf setNeedsLayout];
+                                                                }
+                                                                if (succeedBlock) {
+                                                                    succeedBlock(image, videoDuration, error);
+                                                                }
+                                                            });
+                                                        }];
 }
 
 - (void)setImageForMHGalleryItem:(MHGalleryItem*)item
-    imageType:(MHImageType)imageType
-    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
+                       imageType:(MHImageType)imageType
+                    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
     
     __weak typeof(self) weakSelf = self;
     
@@ -48,10 +48,10 @@
         }
         
         [MHGallerySharedManager.sharedManager getImageFromAssetLibrary:item.URLString
-         assetType:assetType
-         successBlock:^(UIImage *image, NSError *error) {
-             [weakSelf setImageForImageView:image successBlock:succeedBlock];
-         }];
+                                                             assetType:assetType
+                                                          successBlock:^(UIImage *image, NSError *error) {
+                                                              [weakSelf setImageForImageView:image successBlock:succeedBlock];
+                                                          }];
     }
     else if (item.image) {
         [self setImageForImageView:item.image successBlock:succeedBlock];
@@ -67,18 +67,18 @@
         }
         
         [self sd_setImageWithURL:[NSURL URLWithString:toLoadURL]
-         placeholderImage:[SDImageCache.sharedImageCache imageFromDiskCacheForKey:placeholderURL]
-         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-             if (succeedBlock) {
-                 succeedBlock(image, error);
-             }
-         }];
+                placeholderImage:[SDImageCache.sharedImageCache imageFromDiskCacheForKey:placeholderURL]
+                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                           if (succeedBlock) {
+                               succeedBlock(image, error);
+                           }
+                       }];
     }
 }
 
 
 - (void)setImageForImageView:(UIImage*)image
-    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
+                successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock {
     
     __weak typeof(self) weakSelf = self;
     

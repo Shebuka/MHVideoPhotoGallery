@@ -19,10 +19,10 @@ typedef NS_ENUM (NSUInteger, MHImageType) {
 @interface UIImageView (MHGallery)
 
 - (void)setThumbWithURL:(NSString*)URL
-    successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock;
+           successBlock:(void (^)(UIImage *image, NSUInteger videoDuration, NSError *error))succeedBlock;
 
 - (void)setImageForMHGalleryItem:(MHGalleryItem*)item
-    imageType:(MHImageType)imageType
-    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock;
+                       imageType:(MHImageType)imageType
+                    successBlock:(void (^)(UIImage *image, NSError *error))succeedBlock;
 @end
 

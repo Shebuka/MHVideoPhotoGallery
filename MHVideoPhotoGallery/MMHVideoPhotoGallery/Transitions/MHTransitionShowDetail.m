@@ -59,37 +59,37 @@
     [containerView addSubview:cellImageSnapshot];
     
     [cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
-     forFrame:CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.height)
-     withDuration:duration
-     afterDelay:0
-     finished:nil];
+                                forFrame:CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.height)
+                            withDuration:duration
+                              afterDelay:0
+                                finished:nil];
     
     [UIView animateWithDuration:duration animations:^{
-         toViewController.view.alpha = 1.0;
-     } completion:^(BOOL finished) {
-         [UIView animateWithDuration:0.1 animations:^{
-              cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.02, 1.02);
-          } completion:^(BOOL finished) {
-              [UIView animateWithDuration:0.1 animations:^{
-                   cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.00, 1.00);
-               } completion:^(BOOL finished) {
-                   toViewController.pageViewController.view.hidden = NO;
-                   cell.thumbnail.hidden = NO;
-                   if (!videoIconsHidden) {
-                       cell.videoGradient.hidden = NO;
-                       cell.videoIcon.hidden = NO;
-                       cell.videoDurationLength.hidden = NO;
-                   }
-                   if ([transitionContext transitionWasCancelled]) {
-                       [transitionContext completeTransition:NO];
-                   }
-                   else {
-                       [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-                   }
-                   [cellImageSnapshot removeFromSuperview];
-               }];
-          }];
-     }];
+        toViewController.view.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.02, 1.02);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 animations:^{
+                cellImageSnapshot.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.00, 1.00);
+            } completion:^(BOOL finished) {
+                toViewController.pageViewController.view.hidden = NO;
+                cell.thumbnail.hidden = NO;
+                if (!videoIconsHidden) {
+                    cell.videoGradient.hidden = NO;
+                    cell.videoIcon.hidden = NO;
+                    cell.videoDurationLength.hidden = NO;
+                }
+                if ([transitionContext transitionWasCancelled]) {
+                    [transitionContext completeTransition:NO];
+                }
+                else {
+                    [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+                }
+                [cellImageSnapshot removeFromSuperview];
+            }];
+        }];
+    }];
 }
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return 0.3;
@@ -162,12 +162,12 @@
     self.changedFrame = changedFrame;
     
     [self.cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
-     forFrame:changedFrame
-     withDuration:0.2
-     afterDelay:0
-     finished:^(BOOL finished) {
-         
-     }];
+                                     forFrame:changedFrame
+                                 withDuration:0.2
+                                   afterDelay:0
+                                     finished:^(BOOL finished) {
+                                         
+                                     }];
 }
 
 - (void)finishInteractiveTransition {
@@ -186,33 +186,33 @@
     transform = CGAffineTransformRotate(transform, 0);
     
     [UIView animateWithDuration:0.3 animations:^{
-         self.cellImageSnapshot.transform = transform;
-         self.cellImageSnapshot.center = toViewController.view.center;
-     } completion:^(BOOL finished) {
-         
-         CGRect rect = self.cellImageSnapshot.frame;
-         
-         self.cellImageSnapshot.transform = CGAffineTransformIdentity;
-         self.cellImageSnapshot.frame = rect;
-         
-         [UIView animateWithDuration:0.2 animations:^{
-              toViewController.view.alpha = 1;
-              self.cellImageSnapshot.frame = toViewController.view.bounds;
-              self.titleViewBackgroundToolbar.alpha = 1;
-              self.descriptionViewBackgroundToolbar.alpha = 1;
-              self.toolbar.alpha = 1;
-              self.titleLabel.alpha = 1;
-              self.descriptionLabel.alpha = 1;
-              
-          } completion:^(BOOL finished) {
-              self.cell.thumbnail.hidden = NO;
-              toViewController.pageViewController.view.hidden = NO;
-              toViewController.toolbar = self.toolbar;
-              [self.cellImageSnapshot removeFromSuperview];
-              [self.backView removeFromSuperview];
-              [self.context completeTransition:YES];
-          }];
-     }];
+        self.cellImageSnapshot.transform = transform;
+        self.cellImageSnapshot.center = toViewController.view.center;
+    } completion:^(BOOL finished) {
+        
+        CGRect rect = self.cellImageSnapshot.frame;
+        
+        self.cellImageSnapshot.transform = CGAffineTransformIdentity;
+        self.cellImageSnapshot.frame = rect;
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            toViewController.view.alpha = 1;
+            self.cellImageSnapshot.frame = toViewController.view.bounds;
+            self.titleViewBackgroundToolbar.alpha = 1;
+            self.descriptionViewBackgroundToolbar.alpha = 1;
+            self.toolbar.alpha = 1;
+            self.titleLabel.alpha = 1;
+            self.descriptionLabel.alpha = 1;
+            
+        } completion:^(BOOL finished) {
+            self.cell.thumbnail.hidden = NO;
+            toViewController.pageViewController.view.hidden = NO;
+            toViewController.toolbar = self.toolbar;
+            [self.cellImageSnapshot removeFromSuperview];
+            [self.backView removeFromSuperview];
+            [self.context completeTransition:YES];
+        }];
+    }];
     
 }
 
@@ -224,38 +224,38 @@
     transform = CGAffineTransformRotate(transform, 0);
     
     [UIView animateWithDuration:0.2 animations:^{
-         self.cellImageSnapshot.transform = transform;
-     } completion:^(BOOL finished) {
-         CGRect rect = self.cellImageSnapshot.frame;
-         self.cellImageSnapshot.transform = CGAffineTransformIdentity;
-         self.cellImageSnapshot.frame = rect;
-         
-         [UIView animateWithDuration:0.25 animations:^{
-              self.titleViewBackgroundToolbar.alpha = 0;
-              self.descriptionViewBackgroundToolbar.alpha = 0;
-              self.toolbar.alpha = 0;
-              self.titleLabel.alpha = 0;
-              self.descriptionLabel.alpha = 0;
-              self.backView.alpha = 0;
-              self.cellImageSnapshot.frame = self.changedFrame;
-              self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
-          } completion:^(BOOL finished) {
-              [UIView animateWithDuration:0.2 animations:^{
-                   self.cellImageSnapshot.frame = self.startFrame;
-                   self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
-               } completion:^(BOOL finished) {
-                   [self.titleViewBackgroundToolbar removeFromSuperview];
-                   [self.descriptionViewBackgroundToolbar removeFromSuperview];
-                   [self.toolbar removeFromSuperview];
-                   [self.titleLabel removeFromSuperview];
-                   [self.descriptionLabel removeFromSuperview];
-                   [self.backView removeFromSuperview];
-                   [self.cellImageSnapshot removeFromSuperview];
-                   self.cell.thumbnail.hidden = NO;
-                   [self.context completeTransition:NO];
-               }];
-          }];
-     }];
+        self.cellImageSnapshot.transform = transform;
+    } completion:^(BOOL finished) {
+        CGRect rect = self.cellImageSnapshot.frame;
+        self.cellImageSnapshot.transform = CGAffineTransformIdentity;
+        self.cellImageSnapshot.frame = rect;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.titleViewBackgroundToolbar.alpha = 0;
+            self.descriptionViewBackgroundToolbar.alpha = 0;
+            self.toolbar.alpha = 0;
+            self.titleLabel.alpha = 0;
+            self.descriptionLabel.alpha = 0;
+            self.backView.alpha = 0;
+            self.cellImageSnapshot.frame = self.changedFrame;
+            self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.cellImageSnapshot.frame = self.startFrame;
+                self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
+            } completion:^(BOOL finished) {
+                [self.titleViewBackgroundToolbar removeFromSuperview];
+                [self.descriptionViewBackgroundToolbar removeFromSuperview];
+                [self.toolbar removeFromSuperview];
+                [self.titleLabel removeFromSuperview];
+                [self.descriptionLabel removeFromSuperview];
+                [self.backView removeFromSuperview];
+                [self.cellImageSnapshot removeFromSuperview];
+                self.cell.thumbnail.hidden = NO;
+                [self.context completeTransition:NO];
+            }];
+        }];
+    }];
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {

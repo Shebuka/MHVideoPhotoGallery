@@ -65,8 +65,8 @@
         
         
         [toViewController.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:toViewController.pageIndex inSection:0]
-         atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-         animated:NO];
+                                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                                        animated:NO];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -75,29 +75,29 @@
             
             cell.thumbnail.hidden = YES;
             [UIView animateWithDuration:duration animations:^{
-                 
-                 toViewController.collectionView.alpha = 1;
-                 
-                 if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
-                     toViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height - 240, toViewController.view.frame.size.width, 240);
-                     toViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height - 230, toViewController.view.frame.size.width, 240);
-                 }
-                 else {
-                     toViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
-                     toViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
-                 }
-                 fromViewController.view.alpha = 0;
-                 cellImageSnapshot.frame = [containerView convertRect:cell.thumbnail.frame fromView:cell.thumbnail.superview];
-                 cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
-                 whiteView.alpha = 0;
-                 toViewController.view.alpha = 1.0;
-                 
-             } completion:^(BOOL finished) {
-                 [cellImageSnapshot removeFromSuperview];
-                 cell.thumbnail.hidden = NO;
-                 
-                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-             }];
+                
+                toViewController.collectionView.alpha = 1;
+                
+                if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
+                    toViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height - 240, toViewController.view.frame.size.width, 240);
+                    toViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height - 230, toViewController.view.frame.size.width, 240);
+                }
+                else {
+                    toViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
+                    toViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
+                }
+                fromViewController.view.alpha = 0;
+                cellImageSnapshot.frame = [containerView convertRect:cell.thumbnail.frame fromView:cell.thumbnail.superview];
+                cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
+                whiteView.alpha = 0;
+                toViewController.view.alpha = 1.0;
+                
+            } completion:^(BOOL finished) {
+                [cellImageSnapshot removeFromSuperview];
+                cell.thumbnail.hidden = NO;
+                
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            }];
         });
         
     }
@@ -145,9 +145,9 @@
         ivC.pageIndex = toViewController.pageIndex;
         
         [toViewController.pageViewController setViewControllers:@[ivC]
-         direction:UIPageViewControllerNavigationDirectionForward
-         animated:NO
-         completion:nil];
+                                                      direction:UIPageViewControllerNavigationDirectionForward
+                                                       animated:NO
+                                                     completion:nil];
         cell.thumbnail.hidden = YES;
         
         MHUIImageViewContentViewAnimation *cellImageSnapshot = [[MHUIImageViewContentViewAnimation alloc] initWithFrame:[containerView convertRect:cell.thumbnail.frame fromView:cell.thumbnail.superview]];
@@ -166,25 +166,25 @@
         [containerView addSubview:cellImageSnapshot];
         
         [cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
-         forFrame:CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.height)
-         withDuration:duration
-         afterDelay:0
-         finished:^(BOOL finished) {
-             
-         }];
+                                    forFrame:CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.height)
+                                withDuration:duration
+                                  afterDelay:0
+                                    finished:^(BOOL finished) {
+                                        
+                                    }];
         
         [UIView animateWithDuration:duration animations:^{
-             backWhite.alpha = 1;
-             fromViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
-             fromViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
-         } completion:^(BOOL finished) {
-             toViewController.view.alpha = 1;
-             [cellImageSnapshot removeFromSuperview];
-             [backWhite removeFromSuperview];
-             cell.thumbnail.hidden = NO;
-             
-             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-         }];
+            backWhite.alpha = 1;
+            fromViewController.gradientView.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
+            fromViewController.tableViewShare.frame = CGRectMake(0, toViewController.view.frame.size.height, toViewController.view.frame.size.width, 240);
+        } completion:^(BOOL finished) {
+            toViewController.view.alpha = 1;
+            [cellImageSnapshot removeFromSuperview];
+            [backWhite removeFromSuperview];
+            cell.thumbnail.hidden = NO;
+            
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        }];
         
     }
 }

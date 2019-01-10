@@ -21,23 +21,23 @@
 
 + (instancetype)itemWithVimeoVideoID:(NSString*)ID {
     return [self.class.alloc initWithURL:[NSString stringWithFormat:MHVimeoBaseURL, ID]
-            galleryType:MHGalleryTypeVideo];
+                             galleryType:MHGalleryTypeVideo];
 }
 
 + (instancetype)itemWithYoutubeVideoID:(NSString*)ID {
     return [self.class.alloc initWithURL:[NSString stringWithFormat:MHYoutubeBaseURL, ID]
-            galleryType:MHGalleryTypeVideo];
+                             galleryType:MHGalleryTypeVideo];
 }
 
 + (instancetype)itemWithURL:(NSString *)URLString
-    galleryType:(MHGalleryType)galleryType {
+                galleryType:(MHGalleryType)galleryType {
     
     return [self.class.alloc initWithURL:URLString
-            galleryType:galleryType];
+                             galleryType:galleryType];
 }
 
 - (instancetype)initWithURL:(NSString*)URLString
-    galleryType:(MHGalleryType)galleryType {
+                galleryType:(MHGalleryType)galleryType {
     self = [super init];
     if (!self)
         return nil;
@@ -51,15 +51,15 @@
     return self;
 }
 + (instancetype)itemWithURL:(NSString *)URLString
-    thumbnailURL:(NSString*)thumbnailURL {
+               thumbnailURL:(NSString*)thumbnailURL {
     
     return [self.class.alloc initWithURL:URLString
-            thumbnailURL:thumbnailURL];
+                            thumbnailURL:thumbnailURL];
 }
 
 
 - (instancetype)initWithURL:(NSString*)URLString
-    thumbnailURL:(NSString*)thumbnailURL {
+               thumbnailURL:(NSString*)thumbnailURL {
     self = [super init];
     if (!self)
         return nil;

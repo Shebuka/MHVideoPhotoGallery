@@ -47,10 +47,10 @@
 @property (nonatomic)        id onViewController;
 
 - (id)initWithImageName:(NSString*)imageName
-    title:(NSString*)title
-    withMaxNumberOfItems:(NSInteger)maxNumberOfItems
-    withSelector:(NSString*)selectorName
-    onViewController:(id)onViewController;
+                  title:(NSString*)title
+   withMaxNumberOfItems:(NSInteger)maxNumberOfItems
+           withSelector:(NSString*)selectorName
+       onViewController:(id)onViewController;
 
 @end
 
@@ -65,7 +65,7 @@
 @end
 
 @interface MHShareViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
-    
+
 @property(nonatomic, strong) UICollectionView *collectionView;
 @property(nonatomic, strong) UITableView *tableViewShare;
 @property(nonatomic, strong) UIView *gradientView;

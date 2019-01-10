@@ -28,7 +28,7 @@
     
     
     MHGalleryItem *tailored = [[MHGalleryItem alloc]initWithURL:@"http://www.tailored-apps.com/wp-content/uploads/2014/01/wien_cropped-350x300.jpg"
-                               galleryType:MHGalleryTypeImage];
+                                                    galleryType:MHGalleryTypeImage];
     
     self.galleryDataSource = @[tailored];
     
@@ -48,9 +48,9 @@
     }
     else {
         [[MHGallerySharedManager sharedManager] startDownloadingThumbImage:item.URLString
-         successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
-             cell.iv.image = image;
-         }];
+                                                              successBlock:^(UIImage *image, NSUInteger videoDuration, NSError *error) {
+                                                                  cell.iv.image = image;
+                                                              }];
     }
     
     cell.labelText.text = item.descriptionString;

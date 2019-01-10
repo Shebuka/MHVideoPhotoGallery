@@ -43,10 +43,10 @@
 }
 
 - (void)animateToViewMode:(UIViewContentMode)contenMode
-    forFrame:(CGRect)frame
-    withDuration:(float)duration
-    afterDelay:(float)delay
-    finished:(void (^)(BOOL finished))finishedBlock {
+                 forFrame:(CGRect)frame
+             withDuration:(float)duration
+               afterDelay:(float)delay
+                 finished:(void (^)(BOOL finished))finishedBlock {
     [self checkImageViewHasImage];
     
     switch (contenMode) {
@@ -54,29 +54,29 @@
         {
             [self initToScaleAspectFillToFrame:frame];
             [UIView animateWithDuration:duration animations:^{
-                 [self animateToScaleAspectFill];
-             } completion:^(BOOL finished) {
-                 [self animateFinishToScaleAspectFill];
-                 if (finishedBlock) {
-                     finishedBlock(YES);
-                 }
-             }];
+                [self animateToScaleAspectFill];
+            } completion:^(BOOL finished) {
+                [self animateFinishToScaleAspectFill];
+                if (finishedBlock) {
+                    finishedBlock(YES);
+                }
+            }];
         }
-        break;
+            break;
         case UIViewContentModeScaleAspectFit:
         {
             [self initToScaleAspectFitToFrame:frame];
             [UIView animateWithDuration:duration animations:^{
-                 [self animateToScaleAspectFit];
-             } completion:^(BOOL finished) {
-                 if (finishedBlock) {
-                     finishedBlock(YES);
-                 }
-                 
-                 
-             }];
+                [self animateToScaleAspectFit];
+            } completion:^(BOOL finished) {
+                if (finishedBlock) {
+                    finishedBlock(YES);
+                }
+                
+                
+            }];
         }
-        break;
+            break;
             
         default:
             break;

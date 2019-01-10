@@ -34,9 +34,9 @@
 }
 
 - (void)setInseractiveGalleryPresentionWithItems:(NSArray*)galleryItems
-    currentImageIndex:(NSInteger)currentImageIndex
-    currentViewController:(UIViewController*)viewController
-    finishCallback:(void (^)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode))FinishBlock {
+                               currentImageIndex:(NSInteger)currentImageIndex
+                           currentViewController:(UIViewController*)viewController
+                                  finishCallback:(void (^)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode))FinishBlock {
     self.galleryItems = galleryItems;
     self.currentImageIndex = currentImageIndex;
     self.viewController = viewController;
@@ -51,12 +51,12 @@
 }
 - (void)initGestureRecognizers {
     UIPinchGestureRecognizer *pinchToPresent = [UIPinchGestureRecognizer.alloc initWithTarget:self
-                                                action:@selector(presentMHGalleryPinch:)];
+                                                                                       action:@selector(presentMHGalleryPinch:)];
     [self addGestureRecognizer:pinchToPresent];
     
     
     UIRotationGestureRecognizer *rotate = [UIRotationGestureRecognizer.alloc initWithTarget:self
-                                           action:@selector(userDidRoate:)];
+                                                                                     action:@selector(userDidRoate:)];
     rotate.delegate = self;
     [self addGestureRecognizer:rotate];
     

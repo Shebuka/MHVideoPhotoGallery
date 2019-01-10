@@ -15,7 +15,7 @@
 @class MHTransitionDismissMHGallery;
 
 @interface MHPresenterImageView : UIImageView <UIGestureRecognizerDelegate>
-    
+
 @property (nonatomic)       BOOL shoudlUsePanGestureReconizer;
 /**
   *  set your Current ViewController
@@ -35,9 +35,9 @@
 @property (nonatomic, strong) MHTransitionPresentMHGallery *presenter;
 
 - (void)setInseractiveGalleryPresentionWithItems:(NSArray*)galleryItems
-    currentImageIndex:(NSInteger)currentImageIndex
-    currentViewController:(UIViewController*)viewController
-    finishCallback:(void (^)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode)
-                    )FinishBlock;
+                               currentImageIndex:(NSInteger)currentImageIndex
+                           currentViewController:(UIViewController*)viewController
+                                  finishCallback:(void (^)(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode)
+                                                  )FinishBlock;
 @end
 

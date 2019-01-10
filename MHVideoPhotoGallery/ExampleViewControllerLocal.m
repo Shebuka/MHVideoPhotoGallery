@@ -16,7 +16,7 @@
 
 
 - (id)initWithSectionName:(NSString*)sectionName
-    items:(NSArray*)galleryItems {
+                    items:(NSArray*)galleryItems {
     self = [super init];
     if (!self)
         return nil;
@@ -41,27 +41,27 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-         [group setAssetsFilter:[ALAssetsFilter allAssets]];
-         NSMutableArray *items = [NSMutableArray new];
-         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
-              if (alAsset) {
-                  MHGalleryItem *item = [[MHGalleryItem alloc]initWithURL:[alAsset.defaultRepresentation.url absoluteString]
-                                         galleryType:MHGalleryTypeImage];
-                  [items addObject:item];
-              }
-          }];
-         if (group) {
-             MHGallerySectionItem *section = [[MHGallerySectionItem alloc]initWithSectionName:[group valueForProperty:ALAssetsGroupPropertyName]
-                                              items:items];
-             [self.allData addObject:section];
-         }
-         if (!group) {
-             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-         }
-         
-     } failureBlock: ^(NSError *error) {
-         
-     }];
+        [group setAssetsFilter:[ALAssetsFilter allAssets]];
+        NSMutableArray *items = [NSMutableArray new];
+        [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
+            if (alAsset) {
+                MHGalleryItem *item = [[MHGalleryItem alloc]initWithURL:[alAsset.defaultRepresentation.url absoluteString]
+                                                            galleryType:MHGalleryTypeImage];
+                [items addObject:item];
+            }
+        }];
+        if (group) {
+            MHGallerySectionItem *section = [[MHGallerySectionItem alloc]initWithSectionName:[group valueForProperty:ALAssetsGroupPropertyName]
+                                                                                       items:items];
+            [self.allData addObject:section];
+        }
+        if (!group) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }
+        
+    } failureBlock: ^(NSError *error) {
+        
+    }];
     
 }
 
@@ -82,10 +82,10 @@
     MHGalleryItem *item = [section.galleryItems firstObject];
     
     [[MHGallerySharedManager sharedManager] getImageFromAssetLibrary:item.URLString
-     assetType:MHAssetImageTypeThumb
-     successBlock:^(UIImage *image, NSError *error) {
-         cell.iv.image = image;
-     }];
+                                                           assetType:MHAssetImageTypeThumb
+                                                        successBlock:^(UIImage *image, NSError *error) {
+                                                            cell.iv.image = image;
+                                                        }];
     
     cell.labelText.text = section.sectionName;
     return cell;
@@ -117,10 +117,10 @@
         }
         else {
             UIAlertView *alterView = [[UIAlertView alloc]initWithTitle:@"Hint"
-                                      message:@"You don't have images on your Simulator"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil, nil];
+                                                               message:@"You don't have images on your Simulator"
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil, nil];
             [alterView show];
         }
     });
