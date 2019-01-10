@@ -1134,10 +1134,8 @@
         return NO;
     }
     if (self.viewController.transitionCustomization.dismissWithScrollGestureOnFirstAndLastImage) {
-        if ((self.pageIndex ==0 || self.pageIndex == self.viewController.numberOfGalleryItems -1)) {
-            if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")] ) {
-                return YES;
-            }
+        if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]) {     // || [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")] ) {
+            return NO;
         }
     }
     return NO;
@@ -1188,14 +1186,14 @@
     if (self.interactiveOverView || self.interactiveTransition) {
         return NO;
     }
-    if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ) {
-        return YES;
-    }
+//    if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ) {
+//        return YES;
+//    }
     if ([gestureRecognizer isKindOfClass:MHPinchGestureRecognizer.class]) {
         return YES;
     }
     if (self.viewController.transitionCustomization.dismissWithScrollGestureOnFirstAndLastImage) {
-        if ((self.pageIndex ==0 || self.pageIndex == self.viewController.numberOfGalleryItems -1) && [gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]) {
+        if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]) {
             return YES;
         }
     }
