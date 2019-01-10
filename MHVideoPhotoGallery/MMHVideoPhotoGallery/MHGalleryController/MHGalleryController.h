@@ -20,7 +20,7 @@
 @optional
 - (void)galleryController:(MHGalleryController*)galleryController didShowIndex:(NSInteger)index;
 - (BOOL)galleryController:(MHGalleryController*)galleryController shouldHandleURL:(NSURL *)URL;
-- (NSArray<MHBarButtonItem *>*)customizeableToolBarItems:(NSArray<MHBarButtonItem *>*) toolBarItems forGalleryItem:(MHGalleryItem*)galleryItem;
+- (NSArray<MHBarButtonItem *>*)customizeableToolBarItems:(NSArray<MHBarButtonItem *>*)toolBarItems forGalleryItem:(MHGalleryItem*)galleryItem;
 @end
 
 @protocol MHGalleryDataSource<NSObject>
@@ -43,7 +43,7 @@
 @end
 
 @interface MHGalleryController : UINavigationController <MHGalleryDataSource>
-
+    
 @property (nonatomic, assign) id<MHGalleryDelegate>              galleryDelegate;
 @property (nonatomic, assign) id<MHGalleryDataSource>            dataSource;
 @property (nonatomic, assign) BOOL autoplayVideos;        //Default NO
@@ -94,7 +94,7 @@
   */
 - (void)presentMHGalleryController:(MHGalleryController*)galleryController
     animated:(BOOL)animated
-    completion:(void (^)(void)) completion NS_SWIFT_NAME(present(galleryController:animated:completion:));
+    completion:(void (^)(void))completion NS_SWIFT_NAME(present(galleryController:animated:completion:));
 /**
   *  For dismissing MHGalleryController
   *

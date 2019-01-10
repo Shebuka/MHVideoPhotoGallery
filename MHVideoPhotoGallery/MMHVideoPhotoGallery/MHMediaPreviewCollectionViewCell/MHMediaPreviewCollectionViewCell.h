@@ -11,7 +11,7 @@
 @class MHGalleryItem;
 
 @interface MHMediaPreviewCollectionViewCell : UICollectionViewCell
-
+    
 @property (nonatomic, strong) UIImageView             *thumbnail;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIButton                *playButton;

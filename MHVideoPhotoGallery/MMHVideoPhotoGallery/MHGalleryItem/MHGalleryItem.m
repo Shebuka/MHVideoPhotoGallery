@@ -31,7 +31,7 @@
 
 + (instancetype)itemWithURL:(NSString *)URLString
     galleryType:(MHGalleryType)galleryType {
-
+    
     return [self.class.alloc initWithURL:URLString
             galleryType:galleryType];
 }
@@ -52,7 +52,7 @@
 }
 + (instancetype)itemWithURL:(NSString *)URLString
     thumbnailURL:(NSString*)thumbnailURL {
-
+    
     return [self.class.alloc initWithURL:URLString
             thumbnailURL:thumbnailURL];
 }

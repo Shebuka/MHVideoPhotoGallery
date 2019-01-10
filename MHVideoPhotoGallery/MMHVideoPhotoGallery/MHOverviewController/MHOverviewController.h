@@ -17,7 +17,7 @@
 @end
 
 @interface MHOverviewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
-
+    
 @property (strong, nonatomic) UICollectionView      *collectionView;
 @property (strong, nonatomic) MHMediaPreviewCollectionViewCell *clickedCell;
 @property (nonatomic)         NSInteger currentPage;

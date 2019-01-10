@@ -15,7 +15,7 @@
 @class MHTransitionDismissMHGallery;
 
 @interface MHPresenterImageView : UIImageView <UIGestureRecognizerDelegate>
-
+    
 @property (nonatomic)       BOOL shoudlUsePanGestureReconizer;
 /**
   *  set your Current ViewController

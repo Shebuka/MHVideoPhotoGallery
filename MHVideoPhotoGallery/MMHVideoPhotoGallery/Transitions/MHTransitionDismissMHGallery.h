@@ -11,7 +11,7 @@
 #import "MHUIImageViewContentViewAnimation.h"
 
 @interface MHTransitionDismissMHGallery : UIPercentDrivenInteractiveTransition<UIViewControllerAnimatedTransitioning>
-
+    
 @property (nonatomic, strong)    MPMoviePlayerController *moviePlayer;
 @property (nonatomic, strong)    UIImageView *transitionImageView;
 @property (nonatomic, assign)    CGPoint changedPoint;

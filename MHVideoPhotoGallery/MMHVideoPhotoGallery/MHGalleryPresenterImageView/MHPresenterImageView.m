@@ -53,23 +53,23 @@
     UIPinchGestureRecognizer *pinchToPresent = [UIPinchGestureRecognizer.alloc initWithTarget:self
                                                 action:@selector(presentMHGalleryPinch:)];
     [self addGestureRecognizer:pinchToPresent];
-
-
+    
+    
     UIRotationGestureRecognizer *rotate = [UIRotationGestureRecognizer.alloc initWithTarget:self
                                            action:@selector(userDidRoate:)];
     rotate.delegate = self;
     [self addGestureRecognizer:rotate];
-
+    
     UITapGestureRecognizer *tap = [UITapGestureRecognizer.alloc initWithTarget:self action:@selector(didTapOnImage)];
     [self addGestureRecognizer:tap];
-
-
+    
+    
     if (self.shoudlUsePanGestureReconizer) {
         UIPanGestureRecognizer *pan = [UIPanGestureRecognizer.alloc initWithTarget:self action:@selector(presentMHGalleryPan:)];
         [self addGestureRecognizer:pan];
     }
     self.userInteractionEnabled = YES;
-
+    
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -85,25 +85,25 @@
 }
 
 - (void)didTapOnImage {
-
+    
     MHGalleryController *gallery = [MHGalleryController.alloc initWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = self.galleryItems;
     gallery.presentingFromImageView = self;
     gallery.presentationIndex = self.currentImageIndex;
-
+    
     if (self.finishedCallback) {
         gallery.finishedCallback = self.finishedCallback;
     }
     [self.viewController presentMHGalleryController:gallery animated:YES completion:nil];
-
+    
 }
 - (void)presentMHGallery {
-
+    
     self.presenter = MHTransitionPresentMHGallery.new;
     self.presenter.presentingImageView = self;
     self.presenter.interactive = YES;
-
-
+    
+    
     MHGalleryController *gallery = [MHGalleryController galleryWithPresentationStyle:MHGalleryViewModeImageViewerNavigationBarShown];
     gallery.galleryItems = self.galleryItems;
     gallery.presentingFromImageView = self;
@@ -112,9 +112,9 @@
     if (self.finishedCallback) {
         gallery.finishedCallback = self.finishedCallback;
     }
-
+    
     [self.viewController presentMHGalleryController:gallery animated:YES completion:nil];
-
+    
 }
 
 - (void)presentMHGalleryPan:(UIPanGestureRecognizer*)recognizer {
@@ -166,8 +166,8 @@
         }
         self.presenter = nil;
     }
-
-
+    
+    
 }
 
 @end

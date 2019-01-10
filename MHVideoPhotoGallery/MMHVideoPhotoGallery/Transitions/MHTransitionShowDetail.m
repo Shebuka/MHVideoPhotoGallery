@@ -27,43 +27,43 @@
 @implementation MHTransitionShowDetail
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-
+    
     MHOverviewController *fromViewController = (MHOverviewController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     MHGalleryImageViewerViewController *toViewController = (MHGalleryImageViewerViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-
+    
     MHMediaPreviewCollectionViewCell *cell = (MHMediaPreviewCollectionViewCell*)[fromViewController.collectionView cellForItemAtIndexPath:[[fromViewController.collectionView indexPathsForSelectedItems] firstObject]];
-
-
+    
+    
     MHUIImageViewContentViewAnimation *cellImageSnapshot = [[MHUIImageViewContentViewAnimation alloc] initWithFrame:[containerView convertRect:cell.thumbnail.frame fromView:cell.thumbnail.superview]];
     cellImageSnapshot.image = cell.thumbnail.image;
     cell.thumbnail.hidden = YES;
-
+    
     BOOL videoIconsHidden = YES;
-
+    
     if (!cell.videoGradient.isHidden) {
         cell.videoGradient.hidden = YES;
         cell.videoDurationLength.hidden = YES;
         cell.videoIcon.hidden = YES;
         videoIconsHidden = NO;
     }
-
+    
     toViewController.view.frame = [transitionContext finalFrameForViewController:toViewController];
     toViewController.view.alpha = 0;
     toViewController.pageViewController.view.hidden = YES;
-
-
-
+    
+    
+    
     [containerView addSubview:toViewController.view];
     [containerView addSubview:cellImageSnapshot];
-
+    
     [cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
      forFrame:CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.height)
      withDuration:duration
      afterDelay:0
      finished:nil];
-
+    
     [UIView animateWithDuration:duration animations:^{
          toViewController.view.alpha = 1.0;
      } completion:^(BOOL finished) {
@@ -97,47 +97,47 @@
 
 - (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.context = transitionContext;
-
+    
     MHOverviewController *fromViewController = (MHOverviewController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     MHGalleryImageViewerViewController *toViewController = (MHGalleryImageViewerViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
-
+    
     self.cell = (MHMediaPreviewCollectionViewCell*)[fromViewController.collectionView cellForItemAtIndexPath:self.indexPath];
-
+    
     self.cellImageSnapshot = [[MHUIImageViewContentViewAnimation alloc] initWithFrame:[containerView convertRect:self.cell.thumbnail.frame fromView:self.cell.thumbnail.superview]];
     self.cellImageSnapshot.image = self.cell.thumbnail.image;
-
+    
     self.startFrame = self.cellImageSnapshot.frame;
     self.cell.thumbnail.hidden = YES;
-
+    
     if (!self.cell.videoGradient.isHidden) {
         self.cell.videoGradient.hidden = YES;
         self.cell.videoDurationLength.hidden = YES;
         self.cell.videoIcon.hidden = YES;
     }
-
+    
     toViewController.view.frame = [transitionContext finalFrameForViewController:toViewController];
     toViewController.view.alpha = 0;
     toViewController.pageViewController.view.hidden = YES;
-
+    
     self.titleLabel.alpha = 0;
-
+    
     //   self.descriptionLabel = toViewController.descriptionView;
     self.descriptionLabel.alpha = 0;
-
+    
     self.toolbar = toViewController.toolbar;
     self.toolbar.alpha = 0;
     self.toolbar.frame = CGRectMake(0, toViewController.view.frame.size.height - 44, toViewController.view.frame.size.width, 44);
-
+    
     self.titleViewBackgroundToolbar.alpha = 0;
-
+    
     self.descriptionViewBackgroundToolbar.alpha = 0;
     self.descriptionViewBackgroundToolbar.frame = CGRectMake(0, toViewController.view.frame.size.height - 110, toViewController.view.frame.size.width, 110);
-
+    
     self.backView = [UIView.alloc initWithFrame:toViewController.view.bounds];
     self.backView.backgroundColor = UIColor.whiteColor;
     self.backView.alpha = 0;
-
+    
     [containerView addSubview:toViewController.view];
     [containerView addSubview:self.backView];
     [containerView addSubview:self.cellImageSnapshot];
@@ -146,9 +146,9 @@
     [containerView addSubview:self.toolbar];
     [containerView addSubview:self.titleLabel];
     [containerView addSubview:self.descriptionLabel];
-
+    
     BOOL imageIsLand = self.cellImageSnapshot.imageMH.size.width > self.cellImageSnapshot.imageMH.size.height;
-
+    
     CGRect changedFrame;
     if (!imageIsLand) {
         CGFloat value = self.cellImageSnapshot.frame.size.width / self.cellImageSnapshot.imageMH.size.width;
@@ -158,43 +158,43 @@
         CGFloat value = self.cellImageSnapshot.frame.size.height / self.cellImageSnapshot.imageMH.size.height;
         changedFrame = CGRectMake(self.cellImageSnapshot.frame.origin.x - ((self.cellImageSnapshot.imageMH.size.width * value - self.cellImageSnapshot.frame.size.height) / 2), self.cellImageSnapshot.frame.origin.y, self.cellImageSnapshot.imageMH.size.width * value, self.cellImageSnapshot.frame.size.height);
     }
-
+    
     self.changedFrame = changedFrame;
-
+    
     [self.cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFit
      forFrame:changedFrame
      withDuration:0.2
      afterDelay:0
      finished:^(BOOL finished) {
-
+         
      }];
 }
 
 - (void)finishInteractiveTransition {
     [super finishInteractiveTransition];
-
+    
     MHGalleryImageViewerViewController *toViewController = (MHGalleryImageViewerViewController*)[self.context viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     CGFloat scaleForToViewControllerSize = toViewController.view.bounds.size.height / self.changedFrame.size.height;
     BOOL imageIsLand = self.cellImageSnapshot.imageMH.size.width > self.cellImageSnapshot.imageMH.size.height;
     if (imageIsLand) {
         scaleForToViewControllerSize = toViewController.view.bounds.size.width / self.changedFrame.size.width;
     }
-
+    
     CGAffineTransform transform = CGAffineTransformIdentity;
     transform = CGAffineTransformScale(transform, scaleForToViewControllerSize, scaleForToViewControllerSize);
     transform = CGAffineTransformRotate(transform, 0);
-
+    
     [UIView animateWithDuration:0.3 animations:^{
          self.cellImageSnapshot.transform = transform;
          self.cellImageSnapshot.center = toViewController.view.center;
      } completion:^(BOOL finished) {
-
+         
          CGRect rect = self.cellImageSnapshot.frame;
-
+         
          self.cellImageSnapshot.transform = CGAffineTransformIdentity;
          self.cellImageSnapshot.frame = rect;
-
+         
          [UIView animateWithDuration:0.2 animations:^{
               toViewController.view.alpha = 1;
               self.cellImageSnapshot.frame = toViewController.view.bounds;
@@ -203,7 +203,7 @@
               self.toolbar.alpha = 1;
               self.titleLabel.alpha = 1;
               self.descriptionLabel.alpha = 1;
-
+              
           } completion:^(BOOL finished) {
               self.cell.thumbnail.hidden = NO;
               toViewController.pageViewController.view.hidden = NO;
@@ -213,23 +213,23 @@
               [self.context completeTransition:YES];
           }];
      }];
-
+    
 }
 
 - (void)cancelInteractiveTransition {
     [super cancelInteractiveTransition];
-
+    
     CGAffineTransform transform = CGAffineTransformIdentity;
     transform = CGAffineTransformScale(transform, 1 + self.scale * 3, 1 + self.scale * 3);
     transform = CGAffineTransformRotate(transform, 0);
-
+    
     [UIView animateWithDuration:0.2 animations:^{
          self.cellImageSnapshot.transform = transform;
      } completion:^(BOOL finished) {
          CGRect rect = self.cellImageSnapshot.frame;
          self.cellImageSnapshot.transform = CGAffineTransformIdentity;
          self.cellImageSnapshot.frame = rect;
-
+         
          [UIView animateWithDuration:0.25 animations:^{
               self.titleViewBackgroundToolbar.alpha = 0;
               self.descriptionViewBackgroundToolbar.alpha = 0;
@@ -260,7 +260,7 @@
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     [super updateInteractiveTransition:percentComplete];
-
+    
     self.backView.alpha = percentComplete;
     self.titleViewBackgroundToolbar.alpha = percentComplete;
     self.descriptionViewBackgroundToolbar.alpha = percentComplete;
@@ -268,10 +268,10 @@
     self.titleLabel.alpha = percentComplete;
     self.descriptionLabel.alpha = percentComplete;
     self.cellImageSnapshot.center = CGPointMake(self.cellImageSnapshot.center.x - self.changedPoint.x, self.cellImageSnapshot.center.y - self.changedPoint.y);
-
+    
     self.cellImageSnapshot.transform = CGAffineTransformMakeScale(1 + self.scale * 3, 1 + self.scale * 3);
     self.cellImageSnapshot.transform = CGAffineTransformRotate(self.cellImageSnapshot.transform, self.angle);
-
+    
 }
 
 @end

@@ -15,7 +15,7 @@ typedef NS_ENUM (NSUInteger, MHGalleryType) {
 };
 
 @interface MHGalleryItem : NSObject
-
+    
 @property (nonatomic, strong) UIImage            *image;
 @property (nonatomic, strong) NSString           *URLString;
 /**

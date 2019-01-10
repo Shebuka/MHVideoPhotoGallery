@@ -22,7 +22,7 @@
 @end
 
 @interface MHGalleryLabel : TTTAttributedLabel
-
+    
 @property (nonatomic, strong) MHUICustomization *UICustomization;
 @property (nonatomic) BOOL wholeText;
 @property (nonatomic, assign) id<MHGalleryLabelDelegate>  labelDelegate;

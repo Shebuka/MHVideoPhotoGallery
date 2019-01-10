@@ -22,7 +22,7 @@
 
 
 @interface MHGalleryImageViewerViewController : UIViewController<UIPageViewControllerDelegate, UIPageViewControllerDataSource, UINavigationControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UINavigationBarDelegate, UITextViewDelegate>
-
+    
 @property (nonatomic, strong)          NSArray *galleryItems;
 @property (nonatomic, strong)          UIToolbar *toolbar;
 @property (nonatomic, strong)          MHScrollViewLabel *titleLabel;
@@ -47,7 +47,7 @@
 @end
 
 @interface MHImageViewController : UIViewController<UIScrollViewDelegate, UIGestureRecognizerDelegate>
-
+    
 @property (nonatomic, strong)        MHTransitionDismissMHGallery *interactiveTransition;
 @property (nonatomic, strong)        MHTransitionShowOverView *interactiveOverView;
 @property (nonatomic, strong)        MHGalleryImageViewerViewController *viewController;

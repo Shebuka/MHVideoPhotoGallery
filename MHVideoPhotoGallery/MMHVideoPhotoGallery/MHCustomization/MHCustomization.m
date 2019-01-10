@@ -32,7 +32,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-
+        
         self.descriptionLinkAttributes = @{ NSForegroundColorAttributeName : UIApplication.sharedApplication.keyWindow.tintColor ? : UIColor.redColor };
         self.descriptionActiveLinkAttributes = @{ NSForegroundColorAttributeName : UIColor.whiteColor };
         self.descriptionTruncationString = [self truncationString];
@@ -45,23 +45,23 @@
         self.hideShare = NO;
         self.backButtonState = MHBackButtonStateWithBackArrow;
         self.videoProgressTintColor = UIColor.blackColor;
-
+        
         self.backgroundColorsForViewModes = [NSMutableDictionary  dictionaryWithDictionary:@{ @"0":UIColor.blackColor,
                                                                                               @"1":UIColor.whiteColor,
                                                                                               @"2":UIColor.whiteColor }];
-
-
-
-
+        
+        
+        
+        
         self.gradientColorsForDirection = [NSMutableDictionary dictionaryWithDictionary:@{ @"0":@[[[UIColor blackColor] colorWithAlphaComponent:0.85],
                                                                                                   [[UIColor blackColor] colorWithAlphaComponent:0.70],
                                                                                                   [[UIColor blackColor] colorWithAlphaComponent:0.0]],
                                                                                            @"1":@[[[UIColor blackColor] colorWithAlphaComponent:0.0],
                                                                                                   [[UIColor blackColor] colorWithAlphaComponent:0.70],
                                                                                                   [[UIColor blackColor] colorWithAlphaComponent:0.85]] }];
-
+        
         self.customBarButtonItem = nil;
-
+        
         CGSize screenSize = UIScreen.mainScreen.bounds.size;
         UICollectionViewFlowLayout *flowLayoutLanscape = UICollectionViewFlowLayout.new;
         flowLayoutLanscape.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -70,7 +70,7 @@
         flowLayoutLanscape.minimumLineSpacing = 10;
         flowLayoutLanscape.itemSize = CGSizeMake(screenSize.width / 3.1, screenSize.width / 3.1);
         self.overViewCollectionViewLayoutLandscape = flowLayoutLanscape;
-
+        
         UICollectionViewFlowLayout *flowLayoutPort = UICollectionViewFlowLayout.new;
         flowLayoutPort.scrollDirection = UICollectionViewScrollDirectionVertical;
         flowLayoutPort.sectionInset = UIEdgeInsetsMake(4, 0, 0, 0);
@@ -78,7 +78,7 @@
         flowLayoutPort.minimumLineSpacing = 4;
         flowLayoutPort.itemSize = CGSizeMake(screenSize.width / 3.1, screenSize.width / 3.1);
         self.overViewCollectionViewLayoutPortrait = flowLayoutPort;
-
+        
     }
     return self;
 }
@@ -87,12 +87,12 @@
     NSString *points = @"...";
     NSString *more = MHGalleryLocalizedString(@"truncate.more");
     NSString *wholeString = [points stringByAppendingString:more];
-
+    
     NSMutableAttributedString *truncation = [NSMutableAttributedString.alloc initWithString:wholeString attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:14], NSForegroundColorAttributeName : UIColor.whiteColor }];
-
+    
     NSDictionary *attributes = @{ NSFontAttributeName : [UIFont systemFontOfSize:14],
                                   NSForegroundColorAttributeName : UIApplication.sharedApplication.keyWindow.tintColor ? : UIColor.whiteColor };
-
+    
     [truncation setAttributes:attributes range:NSMakeRange(points.length, more.length)];
     return truncation;
 }

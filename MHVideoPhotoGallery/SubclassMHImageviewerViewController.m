@@ -24,11 +24,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.UICustomization = MHUICustomization.new;
-
+    
     self.navigationItem.rightBarButtonItem = nil;
-
+    
 }
 
 @end

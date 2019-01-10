@@ -16,21 +16,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.title = @"ImageView";
-
-
+    
+    
     MHGalleryItem *tailored = [[MHGalleryItem alloc]initWithURL:@"http://www.tailored-apps.com/wp-content/uploads/2014/01/wien_cropped-350x300.jpg"
-                                                    galleryType:MHGalleryTypeImage];
-
+                               galleryType:MHGalleryTypeImage];
+    
     MHGalleryItem *hannes = [[MHGalleryItem alloc]initWithURL:@"http://www.tailored-apps.com/wp-content/uploads/2014/01/hannes.jpg"
-                                                  galleryType:MHGalleryTypeImage];
-
-
+                             galleryType:MHGalleryTypeImage];
+    
+    
     NSArray *galleryItems = @[tailored, hannes];
-
+    
     __weak ExampleViewControllerImageView *blockSelf = self;
-
+    
     [self.iv setInseractiveGalleryPresentionWithItems:galleryItems currentImageIndex:0 currentViewController:self finishCallback:^(NSInteger currentIndex, UIImage *image, MHTransitionDismissMHGallery *interactiveTransition, MHGalleryViewMode viewMode) {
          if (viewMode == MHGalleryViewModeOverView) {
              [blockSelf dismissViewControllerAnimated:YES completion:nil];
@@ -41,14 +41,14 @@
              [blockSelf.presentedViewController dismissViewControllerAnimated:YES dismissImageView:blockSelf.iv completion:nil];
          }
      }];
-
-
+    
+    
     [self.iv sd_setImageWithURL:[NSURL URLWithString:tailored.URLString]];
     [self.iv setUserInteractionEnabled:YES];
-
+    
     self.iv.shoudlUsePanGestureReconizer = YES;
-
-
+    
+    
 }
 
 

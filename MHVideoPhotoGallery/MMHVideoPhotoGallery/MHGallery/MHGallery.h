@@ -28,8 +28,8 @@
 #endif
 
 #define MHISIPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-#define kMHGalleryBundleName @ "MHGallery"
-#define kMHGalleryBundleExtension @ "bundle"
+#define kMHGalleryBundleName @"MHGallery"
+#define kMHGalleryBundleExtension @"bundle"
 #define MHGalleryOSVersion [UIDevice.currentDevice.systemVersion floatValue]
 
 extern void MHGalleryCustomLocalizationBlock(NSString * (^ customLocalizationBlock)(NSString * stringToLocalize));

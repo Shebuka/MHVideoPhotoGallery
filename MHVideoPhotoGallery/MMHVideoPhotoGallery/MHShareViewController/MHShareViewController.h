@@ -65,7 +65,7 @@
 @end
 
 @interface MHShareViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
-
+    
 @property(nonatomic, strong) UICollectionView *collectionView;
 @property(nonatomic, strong) UITableView *tableViewShare;
 @property(nonatomic, strong) UIView *gradientView;

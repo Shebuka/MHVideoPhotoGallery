@@ -29,20 +29,20 @@
 @implementation MHTransitionDismissMHGallery
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-
+    
     self.context = transitionContext;
-
+    
     id toViewControllerNC = (UINavigationController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     MHGalleryController *fromViewController = (MHGalleryController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     [fromViewController view].alpha = 0;
-
-
+    
+    
     MHGalleryImageViewerViewController *imageViewer = (MHGalleryImageViewerViewController*)fromViewController.visibleViewController;
-
+    
     UIView *containerView = [transitionContext containerView];
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-
+    
     UIImage *image;
     for (MHImageViewController *imageViewerIndex in imageViewer.pageViewController.viewControllers) {
         if (imageViewerIndex.pageIndex == imageViewer.pageIndex) {
@@ -52,31 +52,31 @@
     if (!image) {
         image = MHDefaultImageForFrame(fromViewController.view.frame);
     }
-
+    
     MHUIImageViewContentViewAnimation *cellImageSnapshot = [MHUIImageViewContentViewAnimation.alloc initWithFrame:fromViewController.view.bounds];
     cellImageSnapshot.image = image;
     [cellImageSnapshot setFrame:AVMakeRectWithAspectRatioInsideRect(cellImageSnapshot.imageMH.size, fromViewController.view.bounds)];
     cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
-
+    
     [imageViewer.pageViewController.view setHidden:YES];
-
+    
     [toViewControllerNC view].frame = [transitionContext finalFrameForViewController:toViewControllerNC];
     [toViewControllerNC view].alpha = 0;
-
+    
     UIView *whiteView = [UIView.alloc initWithFrame:fromViewController.view.frame];
     whiteView.backgroundColor = [fromViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
-
+    
     if (imageViewer.isHiddingToolBarAndNavigationBar) {
         whiteView.backgroundColor = [fromViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarHidden];
     }
-
+    
     [containerView addSubview:whiteView];
     [containerView addSubview:[toViewControllerNC view]];
     [containerView addSubview:cellImageSnapshot];
-
+    
     self.toTransform = [(NSNumber *)[[toViewControllerNC view] valueForKeyPath:@"layer.transform.rotation.z"] floatValue];
     self.startTransform = [(NSNumber *)[containerView valueForKeyPath:@"layer.transform.rotation.z"] floatValue];
-
+    
     if ([toViewControllerNC view].frame.size.width > [toViewControllerNC view].frame.size.height && self.toTransform == 0) {
         self.toTransform = self.startTransform;
     }
@@ -86,7 +86,7 @@
         cellImageSnapshot.center = [UIApplication sharedApplication].keyWindow.center;
         self.startFrame = cellImageSnapshot.bounds;
     }
-
+    
     CGFloat delayTime = 0.0;
     if (self.toTransform != self.orientationTransformBeforeDismiss) {
         [UIView animateWithDuration:0.2 animations:^{
@@ -97,16 +97,16 @@
     double delayInSeconds = delayTime;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.transitionImageView.hidden = YES;
-
+            
             [UIView animateWithDuration:duration animations:^{
                  whiteView.alpha = 0;
                  [toViewControllerNC view].alpha = 1;
-
+                 
                  cellImageSnapshot.frame = [containerView convertRect:self.transitionImageView.frame fromView:self.transitionImageView.superview];
-
+                 
                  if (self.transitionImageView.contentMode == UIViewContentModeScaleAspectFit) {
                      cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
                  }
@@ -117,79 +117,79 @@
                  self.transitionImageView.hidden = NO;
                  [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
              }];
-
+            
         });
     });
-
+    
 }
 
 - (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-
+    
     self.context = transitionContext;
-
+    
     id toViewControllerNC = (UINavigationController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     MHGalleryController *fromViewController = (MHGalleryController*)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-
+    
     MHGalleryImageViewerViewController *imageViewer = (MHGalleryImageViewerViewController*)fromViewController.visibleViewController;
-
+    
     self.containerView = [transitionContext containerView];
-
+    
     UIImage *image;
     MHImageViewController *imageViewerCurrent;
-
+    
     for (MHImageViewController *imageViewerIndex in imageViewer.pageViewController.viewControllers) {
         if (imageViewerIndex.pageIndex == imageViewer.pageIndex) {
             imageViewerCurrent = imageViewerIndex;
             image = imageViewerIndex.imageView.image;
         }
     }
-
+    
     self.cellImageSnapshot = [MHUIImageViewContentViewAnimation.alloc initWithFrame:fromViewController.view.bounds];
     self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
-
+    
     if (!image) {
         image = MHDefaultImageForFrame(fromViewController.view.frame);
     }
-
+    
     self.cellImageSnapshot.image = image;
     [self.cellImageSnapshot setFrame:AVMakeRectWithAspectRatioInsideRect(image.size, fromViewController.view.bounds)];
     self.startFrame = self.cellImageSnapshot.frame;
     self.startCenter = self.cellImageSnapshot.center;
-
+    
     [imageViewer.pageViewController.view setHidden:YES];
-
+    
     [toViewControllerNC view].frame = [transitionContext finalFrameForViewController:toViewControllerNC];
     [fromViewController view].alpha = 0;
-
+    
     self.backView = [UIView.alloc initWithFrame:[toViewControllerNC view].frame];
     self.backView.backgroundColor = [fromViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
-
+    
     if (imageViewer.isHiddingToolBarAndNavigationBar) {
         self.backView.backgroundColor = [fromViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarHidden];
     }
-
-
+    
+    
     [self.containerView addSubview:[toViewControllerNC view]];
     [self.containerView addSubview:self.backView];
-
+    
     self.toTransform = [(NSNumber *)[[toViewControllerNC view] valueForKeyPath:@"layer.transform.rotation.z"] floatValue];
     self.startTransform = [(NSNumber *)[self.containerView valueForKeyPath:@"layer.transform.rotation.z"] floatValue];
-
+    
     self.wrongTransform = NO;
     if ([toViewControllerNC view].frame.size.width > [toViewControllerNC view].frame.size.height && self.toTransform == 0) {
         self.toTransform = self.startTransform;
         self.wrongTransform = YES;
     }
-
-
-
+    
+    
+    
     if (imageViewerCurrent.isPlayingVideo && imageViewerCurrent.moviePlayer) {
         self.moviePlayer = imageViewerCurrent.moviePlayer;
         [self.moviePlayer.view setFrame:AVMakeRectWithAspectRatioInsideRect(imageViewerCurrent.moviePlayer.naturalSize, fromViewController.view.bounds)];
-
+        
         self.startFrame = self.moviePlayer.view.frame;
-
+        
         [self.containerView addSubview:self.moviePlayer.view];
         self.transitionImageView.hidden = YES;
     }
@@ -250,7 +250,7 @@
 
 - (void)finishInteractiveTransition {
     [super finishInteractiveTransition];
-
+    
     CGFloat delayTime = 0.0;
     if (self.toTransform != self.orientationTransformBeforeDismiss && self.transitionImageView  && !self.wrongTransform) {
         [UIView animateWithDuration:0.2 animations:^{
@@ -266,9 +266,9 @@
     double delayInSeconds = delayTime;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-
-
-
+        
+        
+        
         if (self.transitionImageView.contentMode == UIViewContentModeScaleAspectFill) {
             [self.cellImageSnapshot animateToViewMode:UIViewContentModeScaleAspectFill
              forFrame:[self.containerView convertRect:self.transitionImageView.frame
@@ -276,16 +276,16 @@
              withDuration:0.3
              afterDelay:0
              finished:^(BOOL finished) {
-
+                 
              }];
         }
-
+        
         [UIView animateWithDuration:0.3 animations:^{
              MHStatusBar().alpha = MHShouldShowStatusBar() ? 1 : 0;
-
+             
              self.cellImageSnapshot.clipsToBounds = self.transitionImageView.clipsToBounds;
              self.cellImageSnapshot.layer.cornerRadius = self.transitionImageView.layer.cornerRadius;
-
+             
              if (self.moviePlayer) {
                  self.moviePlayer.view.frame = [self.containerView convertRect:self.transitionImageView.frame fromView:self.transitionImageView.superview];
              }
@@ -312,7 +312,7 @@
                      }
                  }
              }
-
+             
              self.backView.alpha = 0;
          } completion:^(BOOL finished) {
              self.transitionImageView.hidden = NO;
@@ -322,13 +322,13 @@
              self.context = nil;
          }];
     });
-
+    
 }
 
 
 - (void)cancelInteractiveTransition {
     [super cancelInteractiveTransition];
-
+    
     [UIView animateWithDuration:0.3 animations:^{
          if (self.moviePlayer) {
              if (self.toTransform != self.orientationTransformBeforeDismiss) {
@@ -348,11 +348,11 @@
          }
          self.backView.alpha = 1;
      } completion:^(BOOL finished) {
-
+         
          self.transitionImageView.hidden = NO;
          [self.cellImageSnapshot removeFromSuperview];
          [self.backView removeFromSuperview];
-
+         
          UINavigationController *fromViewController = (UINavigationController*)[self.context viewControllerForKey:UITransitionContextFromViewControllerKey];
          if (self.moviePlayer) {
              if (self.toTransform != self.orientationTransformBeforeDismiss) {
@@ -363,22 +363,22 @@
                  self.moviePlayer.view.bounds = fromViewController.view.bounds;
              }
          }
-
+         
          fromViewController.view.alpha = 1;
-
+         
          MHGalleryImageViewerViewController *imageViewer = (MHGalleryImageViewerViewController*)fromViewController.visibleViewController;
          imageViewer.pageViewController.view.hidden = NO;
-
+         
          if (self.moviePlayer) {
              MHImageViewController *imageViewController = (MHImageViewController*)imageViewer.pageViewController.viewControllers.firstObject;
              [imageViewController.view insertSubview:self.moviePlayer.view atIndex:2];
          }
-
-         if ([self.context respondsToSelector:@selector(viewForKey:)]) { // is on iOS 8?
+         
+         if ([self.context respondsToSelector:@selector(viewForKey:)]) {        // is on iOS 8?
              [UIApplication.sharedApplication.keyWindow addSubview:fromViewController.view];
              self.moviePlayer = nil;
          }
-
+         
          [self.context completeTransition:NO];
          if (self.moviePlayer) {
              [UIView performWithoutAnimation:^{
@@ -400,16 +400,16 @@
 
 
 - (void)doOrientationwithFromViewController:(UINavigationController*)fromViewController {
-
+    
     if (MHGalleryOSVersion < 8.0) {
         fromViewController.view.transform = CGAffineTransformMakeRotation(self.startTransform);
         fromViewController.view.center = UIApplication.sharedApplication.keyWindow.center;
     }
     if (self.toTransform != self.orientationTransformBeforeDismiss) {
-
+        
         NSData *decodedData = [NSData.alloc initWithBase64EncodedString:@"b3JpZW50YXRpb24=" options:0];
         NSString *status = [NSString.alloc initWithData:decodedData encoding:NSUTF8StringEncoding];
-
+        
         if (MHGalleryOSVersion < 8.0) {
             [UIDevice.currentDevice setValue:@(UIInterfaceOrientationPortrait) forKey:status];
         }

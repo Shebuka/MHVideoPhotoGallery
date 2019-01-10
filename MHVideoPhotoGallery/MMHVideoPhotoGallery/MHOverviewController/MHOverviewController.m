@@ -27,45 +27,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
     self.title = MHGalleryLocalizedString(@"overview.title.current");
-
+    
     UIBarButtonItem *doneBarButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
-
+    
     self.navigationItem.rightBarButtonItem = doneBarButton;
-
+    
     self.collectionView = [UICollectionView.alloc initWithFrame:self.view.bounds
                            collectionViewLayout:[self layoutForOrientation:UIApplication.sharedApplication.statusBarOrientation]];
-
+    
     self.collectionView.backgroundColor = [self.galleryViewController.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeOverView];
-
+    
     [self.collectionView registerClass:MHMediaPreviewCollectionViewCell.class
      forCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class)];
-
+    
     self.collectionView.dataSource = self;
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.delegate = self;
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.collectionView];
     [self.collectionView reloadData];
-
+    
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-
+    
     UIMenuItem *saveItem = [UIMenuItem.alloc initWithTitle:MHGalleryLocalizedString(@"overview.menue.item.save")
                             action:@selector(saveImage:)];
 #pragma clang diagnostic pop
-
+    
     UIMenuController.sharedMenuController.menuItems = @[saveItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
     [self setNeedsStatusBarAppearanceUpdate];
-
+    
     [UIApplication.sharedApplication setStatusBarStyle:self.galleryViewController.preferredStatusBarStyleMH
      animated:YES];
 }
@@ -94,7 +94,7 @@
 
 - (void)donePressed {
     self.navigationController.transitioningDelegate = nil;
-
+    
     MHGalleryController *galleryViewController = [self galleryViewController];
     if (galleryViewController.finishedCallback) {
         galleryViewController.finishedCallback(0, nil, nil, MHGalleryViewModeOverView);
@@ -109,46 +109,46 @@
     UICollectionViewCell *cell = (MHMediaPreviewCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MHMediaPreviewCollectionViewCell.class) forIndexPath:indexPath];
     [self makeMHGalleryOverViewCell:(MHMediaPreviewCollectionViewCell*)cell
      atIndexPath:indexPath];
-
+    
     return cell;
 }
 
 - (void)makeMHGalleryOverViewCell:(MHMediaPreviewCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-
+    
     __weak typeof(self) weakSelf = self;
-
+    
     MHGalleryItem *item = [self itemForIndex:indexPath.row];
     cell.thumbnail.image = nil;
-
-
+    
+    
     cell.videoGradient.hidden = YES;
     cell.videoIcon.hidden = YES;
-
-
+    
+    
     cell.saveImage = ^(BOOL shouldSave) {
         [weakSelf getImageForItem:item
          finishCallback:^(UIImage *image) {
              UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
          }];
     };
-
+    
     cell.videoDurationLength.text = @"";
     cell.thumbnail.backgroundColor = [UIColor lightGrayColor];
     cell.galleryItem = item;
-
+    
     cell.thumbnail.userInteractionEnabled = YES;
-
+    
     MHIndexPinchGestureRecognizer *pinch = [MHIndexPinchGestureRecognizer.alloc initWithTarget:self
                                             action:@selector(userDidPinch:)];
     pinch.indexPath = indexPath;
     [cell.thumbnail addGestureRecognizer:pinch];
-
+    
     UIRotationGestureRecognizer *rotate = [UIRotationGestureRecognizer.alloc initWithTarget:self
                                            action:@selector(userDidRoate:)];
     rotate.delegate = self;
     [cell.thumbnail addGestureRecognizer:rotate];
-
-
+    
+    
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
@@ -162,15 +162,15 @@
     }
 }
 - (void)userDidPinch:(MHIndexPinchGestureRecognizer*)recognizer {
-
+    
     CGFloat scale = recognizer.scale / 5;
-
+    
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         if (recognizer.scale > 1) {
             self.interactivePushTransition = MHTransitionShowDetail.new;
             self.interactivePushTransition.indexPath = recognizer.indexPath;
             self.lastPoint = [recognizer locationInView:self.view];
-
+            
             MHGalleryImageViewerViewController *detail = MHGalleryImageViewerViewController.new;
             detail.galleryItems = self.galleryItems;
             detail.pageIndex = recognizer.indexPath.row;
@@ -183,12 +183,12 @@
         }
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
-
+        
         if (recognizer.numberOfTouches < 2) {
             recognizer.enabled = NO;
             recognizer.enabled = YES;
         }
-
+        
         CGPoint point = [recognizer locationInView:self.view];
         self.interactivePushTransition.scale = recognizer.scale / 8 - self.startScale;
         self.interactivePushTransition.changedPoint = CGPointMake(self.lastPoint.x - point.x, self.lastPoint.y - point.y);
@@ -204,7 +204,7 @@
         }
         self.interactivePushTransition = nil;
     }
-
+    
 }
 
 
@@ -222,7 +222,7 @@
     animationControllerForOperation:(UINavigationControllerOperation)operation
     fromViewController:(UIViewController *)fromVC
     toViewController:(UIViewController *)toVC {
-
+    
     if (fromVC == self && [toVC isKindOfClass:MHGalleryImageViewerViewController.class]) {
         return MHTransitionShowDetail.new;
     }
@@ -236,13 +236,13 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     if (self.navigationController.delegate == self) {
         self.navigationController.delegate = nil;
     }
 }
 - (void)pushToImageViewerForIndexPath:(NSIndexPath*)indexPath {
-
+    
     MHGalleryImageViewerViewController *detail = MHGalleryImageViewerViewController.new;
     detail.pageIndex = indexPath.row;
     detail.galleryItems = self.galleryItems;
@@ -251,18 +251,18 @@
     }
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     __weak typeof(self) weakSelf = self;
-
+    
     MHMediaPreviewCollectionViewCell *cell = (MHMediaPreviewCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     MHGalleryItem *item = [self itemForIndex:indexPath.row];
-
+    
     UIImage *thumbImage = [SDImageCache.sharedImageCache imageFromDiskCacheForKey:item.URLString];
     if (thumbImage) {
         cell.thumbnail.image = thumbImage;
     }
     if ([item.URLString rangeOfString:MHAssetLibrary].location != NSNotFound && item.URLString) {
-
+        
         [MHGallerySharedManager.sharedManager getImageFromAssetLibrary:item.URLString
          assetType:MHAssetImageTypeFull
          successBlock:^(UIImage *image, NSError *error) {
@@ -301,8 +301,8 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
-
+    
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
@@ -320,7 +320,7 @@
                  else {
                      NSData *data = UIImagePNGRepresentation(image);
                      [pasteboard setData:data forPasteboardType:(__bridge NSString *)kUTTypeImage];
-
+                     
                  }
              }
          }];

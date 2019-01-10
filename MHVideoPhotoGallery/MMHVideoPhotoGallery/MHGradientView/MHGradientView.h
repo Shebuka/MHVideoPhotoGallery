@@ -16,7 +16,7 @@ typedef NS_ENUM (NSUInteger, MHGradientDirection) {
 };
 
 @interface MHGradientView : UIView
-
+    
 - (instancetype)initWithDirection:(MHGradientDirection)direction
     andCustomization:(MHUICustomization*)customization;
 

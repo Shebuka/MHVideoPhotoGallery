@@ -44,7 +44,7 @@ typedef NS_ENUM (NSUInteger, MHBackButtonState) {
 @property (nonatomic, strong) UICollectionViewFlowLayout *overViewCollectionViewLayoutLandscape;
 @property (nonatomic, strong) UICollectionViewFlowLayout *overViewCollectionViewLayoutPortrait;
 
-- (void)setMHGradients:(NSArray<UIColor*>*) colors forDirection:(MHGradientDirection)direction;
+- (void)setMHGradients:(NSArray<UIColor*>*)colors forDirection:(MHGradientDirection)direction;
 - (NSArray<UIColor*>*)MHGradientColorsForDirection:(MHGradientDirection)direction;
 
 - (void)setMHGalleryBackgroundColor:(UIColor*)color forViewMode:(MHGalleryViewMode)viewMode;

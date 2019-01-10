@@ -15,17 +15,17 @@
     self = [super initWithNibName:nil bundle:nil];
     if (!self)
         return nil;
-
+    
     self.autoplayVideos = NO;
-
+    
     self.preferredStatusBarStyleMH = UIStatusBarStyleDefault;
     self.presentationStyle = presentationStyle;
     self.transitionCustomization = MHTransitionCustomization.new;
     self.UICustomization = MHUICustomization.new;
-
+    
     self.overViewViewController = MHOverviewController.new;
     self.imageViewerViewController = MHGalleryImageViewerViewController.new;
-
+    
     if (presentationStyle != MHGalleryViewModeOverView) {
         self.viewControllers = @[self.overViewViewController, self.imageViewerViewController];
     }
@@ -82,7 +82,7 @@
 - (void)presentMHGalleryController:(MHGalleryController *)galleryController
     animated:(BOOL)animated
     completion:(void (^)(void))completion {
-
+    
     if (galleryController.UICustomization.useCustomBackButtonImageOnImageViewer) {
         UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
                                           style:UIBarButtonItemStylePlain
@@ -91,7 +91,7 @@
         galleryController.overViewViewController.navigationItem.backBarButtonItem = backBarButton;
         galleryController.navigationBar.tintColor = galleryController.UICustomization.barButtonsTintColor;
     }
-
+    
     if (galleryController.transitionCustomization.interactiveDismiss) {
         galleryController.transitioningDelegate = self;
         galleryController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -102,7 +102,7 @@
     }
     galleryController.navigationBar.barStyle = galleryController.UICustomization.barStyle;
     galleryController.navigationBar.barTintColor = galleryController.UICustomization.barTintColor;
-
+    
     if (!galleryController.dataSource) {
         galleryController.dataSource = galleryController;
     }
@@ -153,17 +153,17 @@
     if ([dismissed isKindOfClass:[UINavigationController class]] && [[(UINavigationController*)dismissed  viewControllers].lastObject isKindOfClass:MHGalleryImageViewerViewController.class]) {
         MHGalleryImageViewerViewController *imageViewer = [(UINavigationController*)dismissed  viewControllers].lastObject;
         MHImageViewController *viewer = imageViewer.pageViewController.viewControllers.firstObject;
-
+        
         if (!imageViewer.dismissFromImageView && viewer.interactiveTransition.finishButtonAction) {
             return nil;
         }
-
+        
         if (viewer.interactiveTransition) {
             MHTransitionDismissMHGallery *detail = viewer.interactiveTransition;
             detail.transitionImageView = imageViewer.dismissFromImageView;
             return detail;
         }
-
+        
         MHTransitionDismissMHGallery *detail = MHTransitionDismissMHGallery.new;
         detail.transitionImageView = imageViewer.dismissFromImageView;
         return detail;

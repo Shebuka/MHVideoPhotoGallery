@@ -14,12 +14,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-
+        
         self.textLabel = MHGalleryLabel.new;
         [self addSubview:self.textLabel];
-
+        
         self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-
+        
         [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
              make.top.mas_equalTo(self.mas_top);
              make.left.mas_equalTo(self.mas_left);
@@ -33,9 +33,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
+    
     self.textLabel.preferredMaxLayoutWidth = self.textLabel.bounds.size.width;
-
+    
     [self setHeightConstraint];
 }
 

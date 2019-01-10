@@ -9,6 +9,6 @@
 #import "MHOverviewController.h"
 
 @interface InstagramViewController : MHOverviewController
-
+    
 @end
 

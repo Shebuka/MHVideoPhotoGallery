@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MHUIImageViewContentViewAnimation : UIImageView
-
+    
 - (UIImage*)imageMH;
 - (void)animateToViewMode:(UIViewContentMode)contenMode
     forFrame:(CGRect)frame

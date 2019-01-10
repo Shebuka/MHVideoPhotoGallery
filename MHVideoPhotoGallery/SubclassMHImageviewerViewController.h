@@ -9,6 +9,6 @@
 #import "MHGalleryImageViewerViewController.h"
 
 @interface SubclassMHImageviewerViewController : MHGalleryImageViewerViewController
-
+    
 @end
 

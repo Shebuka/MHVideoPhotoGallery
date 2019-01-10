@@ -52,7 +52,7 @@ typedef NS_ENUM (NSUInteger, MHYoutubeThumbQuality) {
 
 
 @interface MHGallerySharedManager : NSObject
-
+    
 /**
   *  default is MHYoutubeThumbQualityHQ
   */
